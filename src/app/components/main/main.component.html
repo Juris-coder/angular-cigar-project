@@ -2,4 +2,9 @@
 <ng-container *ngIf="data">
   <p *ngFor="let cigar of data">{{ cigar.name }}</p>
 </ng-container>
-<p *ngIf="!data">No results</p>
+<ngx-skeleton-loader
+  *ngIf="!data"
+  count="20"
+  appearance="line"
+  animation="progress"
+></ngx-skeleton-loader>

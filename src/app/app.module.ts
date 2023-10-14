@@ -8,6 +8,9 @@ import { InputComponent } from './components/input/input.component';
 import { ApiAssistantService } from './utils/apiRequestClass';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, InputComponent],
@@ -16,6 +19,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     AppRoutingModule,
     HttpClientModule,
     NgxSkeletonLoaderModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [ApiAssistantService],
   bootstrap: [AppComponent],

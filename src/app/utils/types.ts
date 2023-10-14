@@ -70,3 +70,20 @@ export type CigarStrength =
   | 'Medium'
   | 'Medium-Full'
   | 'Full';
+
+export type CigarCountry =
+  | 'Cuba'
+  | 'Dominican Republic'
+  | 'Nicaragua'
+  | 'United States of America'
+  | 'Honduras'
+  | 'Guatemala'
+  | 'Costa Rica'
+  | 'Indonesia'
+  | 'Puerto Rico'
+  | 'Mexico'
+  | 'Peru'
+  | 'Brazil'
+  | 'Ecuador'
+  | 'Spain'
+  | 'Jamaica';

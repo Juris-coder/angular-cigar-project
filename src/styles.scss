@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Antonio';
+  src: url('assets/fonts/Antonio.ttf');
+}
+
+@font-face {
+  font-family: 'RobotoSlab';
+  src: url('assets/fonts/RobotoSlab.ttf');
+}
+
+$font-primary: 'Antonio', sans-serif;
+$font-secondary: 'RobotoSlab', sans-serif;

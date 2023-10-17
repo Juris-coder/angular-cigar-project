@@ -52,6 +52,7 @@ export interface ICommonSearchResult {
 }
 
 export type CigarColor =
+  | ''
   | 'Colorado Maduro'
   | 'Colorado Claro'
   | 'Colorado'
@@ -65,6 +66,7 @@ export type CigarColor =
   | 'Barber Pole';
 
 export type CigarStrength =
+  | ''
   | 'Mild'
   | 'Mild-Medium'
   | 'Medium'
@@ -72,18 +74,13 @@ export type CigarStrength =
   | 'Full';
 
 export type CigarCountry =
+  | ''
   | 'Cuba'
   | 'Dominican Republic'
   | 'Nicaragua'
   | 'United States of America'
   | 'Honduras'
-  | 'Guatemala'
   | 'Costa Rica'
-  | 'Indonesia'
-  | 'Puerto Rico'
   | 'Mexico'
-  | 'Peru'
   | 'Brazil'
-  | 'Ecuador'
-  | 'Spain'
-  | 'Jamaica';
+  | 'Ecuador';

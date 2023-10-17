@@ -1,10 +1,31 @@
-<p>main works!</p>
-<ng-container *ngIf="data">
-  <p *ngFor="let cigar of data">{{ cigar.name }}</p>
-</ng-container>
-<ngx-skeleton-loader
-  *ngIf="!data"
-  count="20"
-  appearance="line"
-  animation="progress"
-></ngx-skeleton-loader>
+<section class="section">
+  <div class="v-pad">
+    <div class="container">
+      <div class="layout">
+        <div class="hero-content">
+          <h1 class="text-primary">
+            Welcome<br />to the cigars<br />tasting club!
+          </h1>
+          <div class="subtitle-content">
+            <div class="subtitle-wrapper">
+              <p class="subtitle">
+                Tell us what you like so that we can offer a selection of best
+                cigars out there for you!
+              </p>
+            </div>
+            <div class="btn-group">
+              <a href="#" class="btn secondary">Button Text</a>
+              <a href="start.html" class="btn">start the journey</a>
+            </div>
+          </div>
+        </div>
+        <img
+          src="assets/images/hero-1.jpg"
+          loading="lazy"
+          alt="A cigar cutter in hands cutting a cigar"
+          class="hero-img"
+        />
+      </div>
+    </div>
+  </div>
+</section>

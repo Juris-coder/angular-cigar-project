@@ -1,13 +1,32 @@
-<div class="page-wrapper">
+<div class="page-wrapper" [class.red]="(route$ | async) !== '/'">
   <div class="navbar bg-white">
     <div class="container">
       <div class="nav-content">
         <div class="nav-layout">
-          <a href="#" class="logo text-primary">Fumers Club</a>
+          <a
+            routerLink="/"
+            class="logo"
+            [ngClass]="
+              (route$ | async) !== '/' ? 'text-secondary' : 'text-primary'
+            "
+            >Fumers Club</a
+          >
           <div class="nav-menu">
-            <a href="#" class="nav-link">Creator&#x27;s Github</a>
-            <a href="#" class="nav-link">Creator&#x27;s LinkedIn</a>
-            <a href="#" class="nav-link">Creator&#x27;s Email</a>
+            <a
+              href="https://github.com/Juris-coder"
+              target="_blank"
+              class="nav-link"
+              >Creator&#x27;s Github</a
+            >
+            <a
+              href="https://www.linkedin.com/in/yury-krylovich/"
+              target="_blank"
+              class="nav-link"
+              >Creator&#x27;s LinkedIn</a
+            >
+            <a href="mailto:yury.krylovich@seznam.cz" class="nav-link"
+              >Creator&#x27;s Email</a
+            >
           </div>
         </div>
       </div>

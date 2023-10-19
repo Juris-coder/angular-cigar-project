@@ -1,1 +1,38 @@
-<p>questionnaire works!</p>
+<!-- <button (click)="decreaseStep()">Previous</button>
+<button (click)="increaseStep()">Next</button>
+<div *ngIf="(step$ | async) === 0">Initial step</div>
+<div *ngIf="(step$ | async) === 1">First step</div>
+<div *ngIf="(step$ | async) === 2">Second step</div>
+<div *ngIf="(step$ | async) === 3">Third step</div> -->
+
+<router-outlet></router-outlet>
+<div class="container questionnaire">
+  <div class="step-card bg-white">
+    <div class="wrapper">
+      <h2>What is your age?</h2>
+    </div>
+    <div class="form-wrapper">
+      <div class="input-group">
+        <label for="name" class="input-label">Name</label
+        ><input
+          type="text"
+          class="input"
+          maxlength="256"
+          name="name"
+          placeholder="Winston Churchill"
+        />
+      </div>
+      <div class="notice">
+        You must be over 18 years old in order to continue with out website
+      </div>
+      <div class="btn-group">
+        <a routerLink="/" class="btn secondary">Go back</a
+        ><input type="submit" value="Next Step" class="btn" />
+      </div>
+    </div>
+    <div class="shape-bevel top-left bg-primary"></div>
+    <div class="shape-bevel top-right bg-primary"></div>
+    <div class="shape-bevel bot-left bg-primary"></div>
+    <div class="shape-bevel bot-right bg-primary"></div>
+  </div>
+</div>

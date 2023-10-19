@@ -1,0 +1,129 @@
+@import "../../../styles.scss";
+
+:host {
+  @extend .extend-vertically;
+}
+
+.questionnaire {
+  height: 100%;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.step-card {
+  width: 100%;
+  max-width: 35rem;
+  grid-column-gap: 3rem;
+  grid-row-gap: 3rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  display: flex;
+  position: relative;
+}
+
+.wrapper {
+  min-width: 16rem;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-top: 2px solid $primary;
+  border-bottom: 2px solid $primary;
+  display: flex;
+}
+
+.form-wrapper {
+  max-width: 16rem;
+  min-width: 16rem;
+  grid-column-gap: 1.125rem;
+  grid-row-gap: 1.125rem;
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+}
+
+.input-group {
+  text-align: left;
+  flex-direction: row;
+  align-items: stretch;
+  display: flex;
+  position: relative;
+}
+
+.input-label {
+  min-width: 2.5rem;
+  background-color: $primary;
+  color: $white;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  display: flex;
+}
+
+.input {
+  height: 100%;
+  flex: 1;
+  border: 2px solid $primary;
+  color: $black;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+  margin-bottom: 0;
+  padding: 0.75rem 0.5rem;
+  font-family: $font-primary, sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  &:hover,
+  &:focus {
+    border-color: $primary;
+  }
+
+  &::-ms-input-placeholder {
+    color: $mid-gray;
+  }
+
+  &::placeholder {
+    color: $mid-gray;
+  }
+}
+
+.shape-bevel {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  position: absolute;
+  &.top-left {
+    top: -1.5rem;
+    left: -1.5rem;
+  }
+
+  &.top-right {
+    top: -1.5rem;
+    right: -1.5rem;
+  }
+
+  &.bot-left {
+    bottom: -1.5rem;
+    left: -1.5rem;
+  }
+
+  &.bot-right {
+    bottom: -1.5rem;
+    right: -1.5rem;
+  }
+}
+
+.notice {
+  font-size: 0.75rem;
+}
+
+.btn {
+  flex: 1;
+}

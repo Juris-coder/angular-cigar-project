@@ -1,4 +1,8 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
+
+:host {
+  @extend .extend-vertically;
+}
 
 // Main
 .section {
@@ -55,15 +59,4 @@
     color: $mid-gray;
     font-size: 1.125rem;
   }
-}
-
-.btn-group {
-  grid-column-gap: .5rem;
-  grid-row-gap: .5rem;
-  justify-content: flex-start;
-  display: flex;
-}
-
-.btn.secondary {
-  background-color: $light-gray;
 }

@@ -1,10 +1,26 @@
-@import '../styles.scss';
+@import "../styles.scss";
 // Navbar
 
+:host {
+  @extend .extend-vertically;
+}
+
 .page-wrapper {
+  height: 100%;
   background-color: $white;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  &.red {
+    background-color: $primary;
+    .nav-content {
+      border-top: 2px solid $white;
+      border-bottom: 2px solid $white;
+    }
+    .nav-link {
+      @extend .text-secondary;
+      border-left: 2px solid $white;
+    }
+  }
 }
 
 .navbar {
@@ -16,8 +32,8 @@
 .nav-content {
   border-top: 2px solid $primary;
   border-bottom: 2px solid $primary;
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 
   .nav-layout {
     grid-column-gap: 1.5rem;

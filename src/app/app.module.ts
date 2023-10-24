@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
-import { InputComponent } from './components/input/input.component';
+import { InputComponent } from './components/questionnaire/components/input/input.component';
 import { ApiAssistantService } from './utils/apiAssistantService';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -15,6 +15,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { QuestionnaireComponent } from './components/questionnaire/questionnaire.component';
 import { FormLinkingDirective } from './link-form.directive';
 import { metaReducers, reducers } from './state/reducers';
+import { DateComponent } from './components/questionnaire/components/date/date.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { metaReducers, reducers } from './state/reducers';
     InputComponent,
     QuestionnaireComponent,
     FormLinkingDirective,
+    DateComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { metaReducers, reducers } from './state/reducers';
       metaReducers,
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    FontAwesomeModule,
   ],
   providers: [ApiAssistantService],
   bootstrap: [AppComponent],

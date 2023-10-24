@@ -1,53 +1,73 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { Route } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectCurrentStep } from 'src/app/state/selectors/cigarStore.selector';
+import {
+  selectCurrentRoute,
+  selectQuestionnaireData,
+} from 'src/app/state/selectors/cigarStore.selector';
+import { QuestionnaireStep, questionnaireRoute } from './questionnaire.types';
 
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
-  styleUrls: ['./questionnaire.component.scss'],
+  styleUrls: ['./questionnaire.component.scss', '../../../styles.scss'],
 })
-export class QuestionnaireComponent implements OnInit {
-  questionnaireForm: FormGroup | undefined;
+export class QuestionnaireComponent {
+  currentRoute: QuestionnaireStep | undefined;
+  title: string = '';
+  isLastStep = false;
+  name: string = 'stranger';
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.store.select(selectQuestionnaireData).subscribe(({ name }) => {
+      if (name) {
+        this.name = name;
+      }
+    });
 
-  ngOnInit(): void {}
+    this.store
+      .select(selectCurrentRoute)
+      .subscribe(({ routeConfig: { path } }) => {
+        this.currentRoute = path;
+        this.isLastStep = false;
+        switch (path as QuestionnaireStep) {
+          case QuestionnaireStep.DateOfBirth:
+            this.title = 'What is your age?';
+            break;
+          case QuestionnaireStep.Name:
+            this.title = 'Tell us your name';
+            break;
+          case QuestionnaireStep.Country:
+            this.title = `G'day, ${this.name}`;
+            break;
+          case QuestionnaireStep.Color:
+            this.title = `Great choice so far, ${this.name}`;
+            break;
+          case QuestionnaireStep.Strength:
+            this.title = `Nicely done, ${this.name}`;
+            this.isLastStep = true;
+            break;
+        }
+      });
+  }
 
-  // increaseStep(): void {
-  //   this.store.dispatch(increaseCurrentStep());
-  // }
+  getStep(next: boolean): string {
+    const currentIndex = questionnaireRoute.findIndex(
+      ({ path }: Route) => this.currentRoute === path
+    );
+    const isStepLast = questionnaireRoute.length === currentIndex + 1;
+    if (next) {
+      if (isStepLast) {
+        return '/results';
+      }
 
-  // decreaseStep(): void {
-  //   this.store.dispatch(decreaseCurrentStep());
-  // }
+      return questionnaireRoute[currentIndex + 1].path as QuestionnaireStep;
+    }
 
-  step$ = this.store.select(selectCurrentStep);
+    if (currentIndex <= 1) {
+      return '/';
+    }
 
-  // private formInit({ data }: IQuestionnaireState): FormGroup {
-  //   return new FormGroup({
-  //     dateOfBirth: new FormControl<string>(
-  //       data.dateOfBirth,
-  //       Validators.required
-  //     ),
-  //     name: new FormControl<string>(data.name, [
-  //       Validators.maxLength(50),
-  //       Validators.required,
-  //     ]),
-  //     email: new FormControl<string>(data.email, [
-  //       Validators.email,
-  //       Validators.required,
-  //     ]),
-  //     country: new FormControl<CigarCountry | ''>(
-  //       data.country,
-  //       Validators.required
-  //     ),
-  //     color: new FormControl<CigarColor | ''>(data.color, Validators.required),
-  //     strength: new FormControl<CigarStrength | ''>(
-  //       data.strength,
-  //       Validators.required
-  //     ),
-  //   });
-  // }
+    return questionnaireRoute[currentIndex - 1].path as QuestionnaireStep;
+  }
 }

@@ -1,30 +1,6 @@
 import { Routes } from '@angular/router';
-import { QuestionnaireComponent } from './questionnaire.component';
-
-export const questionnaireRoute: Routes = [
-  {
-    path: 'dateOfBirthInput',
-    component: QuestionnaireComponent,
-  },
-  {
-    path: 'nameInput',
-    component: QuestionnaireComponent,
-  },
-  {
-    path: 'countrySelection',
-    component: QuestionnaireComponent,
-  },
-  {
-    path: 'colorSelection',
-    component: QuestionnaireComponent,
-  },
-  {
-    path: 'strengthSelection',
-    component: QuestionnaireComponent,
-  },
-];
-
-export type QuestionnaireStepType = QuestionnaireStep;
+import { InputComponent } from './components/input/input.component';
+import { DateComponent } from './components/date/date.component';
 
 export enum QuestionnaireStep {
   DateOfBirth = 'dateOfBirthInput',
@@ -33,3 +9,35 @@ export enum QuestionnaireStep {
   Color = 'colorSelection',
   Strength = 'strengthSelection',
 }
+
+export const questionnairePath = 'questionnaire';
+
+export const questionnaireRoute: Routes = [
+  {
+    path: '',
+    redirectTo: QuestionnaireStep.DateOfBirth,
+    pathMatch: 'full',
+  },
+  {
+    path: QuestionnaireStep.DateOfBirth,
+    component: DateComponent,
+  },
+  {
+    path: QuestionnaireStep.Name,
+    component: InputComponent,
+  },
+  {
+    path: QuestionnaireStep.Country,
+    component: InputComponent,
+  },
+  {
+    path: QuestionnaireStep.Color,
+    component: InputComponent,
+  },
+  {
+    path: QuestionnaireStep.Strength,
+    component: InputComponent,
+  },
+];
+
+export type QuestionnaireStepType = QuestionnaireStep;

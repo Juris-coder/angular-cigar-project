@@ -5,9 +5,6 @@ import { getRouterSelectors } from '@ngrx/router-store';
 export const selectQuestionnaireFeature =
   createFeatureSelector<IQuestionnaireState>('questionnaire');
 
-export const selectRouterFeature =
-  createFeatureSelector<IQuestionnaireState>('rout');
-
 export const selectQuestionnaireData = createSelector(
   selectQuestionnaireFeature,
   (data) => data

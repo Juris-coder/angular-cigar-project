@@ -1,12 +1,13 @@
 <div class="input-container">
   <div class="input-group">
-    <label for="name" class="input-label"
+    <label for="date" class="input-label"
       ><fa-icon class="fa-2x" [icon]="faCalendarDays"></fa-icon></label
     ><input
       type="date"
       class="input"
-      name="name"
-      placeholder="Winston Churchill"
+      name="date"
+      [value]="(questionnaireData$ | async)?.dateOfBirth"
+      (change)="updateDateValue($event)"
     />
   </div>
   <div class="notice">

@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
+import { IQuestionnaireState } from 'src/app/state/reducers';
+import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 
 @Component({
   selector: 'app-date',
@@ -7,5 +12,15 @@ import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./date.component.scss', '../../questionnaire.component.scss'],
 })
 export class DateComponent {
+  constructor(private store: Store) {}
   faCalendarDays = faCalendarDays;
+
+  questionnaireData$: Observable<IQuestionnaireState> = this.store.select(
+    selectQuestionnaireData
+  );
+
+  updateDateValue({ target }: Event) {
+    const date = (target as HTMLInputElement).value;
+    this.store.dispatch(createUpdatePropertyAction('dateOfBirth')(date));
+  }
 }

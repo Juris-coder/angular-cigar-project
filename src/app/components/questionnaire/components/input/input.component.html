@@ -7,6 +7,8 @@
       maxlength="256"
       name="name"
       placeholder="Winston Churchill"
+      [value]="(questionnaireData$ | async)?.name"
+      (change)="updateNameValue($event)"
     />
   </div>
   <div class="input-group">
@@ -17,6 +19,8 @@
       maxlength="256"
       name="email"
       placeholder="hey@churchill.com"
+      [value]="(questionnaireData$ | async)?.email"
+      (change)="updateEmailValue($event)"
     />
   </div>
   <div class="notice">

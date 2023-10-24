@@ -13,10 +13,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { QuestionnaireComponent } from './components/questionnaire/questionnaire.component';
-import { FormLinkingDirective } from './link-form.directive';
 import { metaReducers, reducers } from './state/reducers';
 import { DateComponent } from './components/questionnaire/components/date/date.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MainComponent,
     InputComponent,
     QuestionnaireComponent,
-    FormLinkingDirective,
     DateComponent,
   ],
   imports: [
@@ -39,6 +38,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     FontAwesomeModule,
+    FormsModule,
   ],
   providers: [ApiAssistantService],
   bootstrap: [AppComponent],

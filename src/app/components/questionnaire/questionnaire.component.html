@@ -6,12 +6,24 @@
     <div class="form-wrapper">
       <router-outlet hidden></router-outlet>
       <div class="btn-group">
-        <a [routerLink]="getStep(false)" class="btn secondary">Go back</a
-        ><input
+        <a [routerLink]="getStep(false)" class="btn secondary">Go back</a>
+        <input
+          *ngIf="!isLastStep"
+          [disabled]="!isCurrentStepValid"
           [routerLink]="getStep(true)"
           type="submit"
-          [value]="isLastStep ? 'Submit results' : 'Next Step'"
+          value="Next Step"
           class="btn"
+          [class.disabled]="!isCurrentStepValid"
+        />
+        <input
+          *ngIf="isLastStep"
+          [disabled]="!isCurrentStepValid || !isFormValid"
+          [routerLink]="getStep(true)"
+          type="submit"
+          value="Submit results"
+          class="btn"
+          [class.disabled]="!isCurrentStepValid"
         />
       </div>
     </div>

@@ -1,8 +1,13 @@
 <div class="buttons-container">
-  <div class="item-button" *ngFor="let item of items">
-    <div class="item-image-wrapper">
+  <div
+    class="item-button"
+    *ngFor="let item of items"
+    [class.selected]="selected === item.name"
+    (click)="selectedChange.emit(item.name)"
+  >
+    <div class="item-image-wrapper center-content">
       <svg-icon [src]="item.url" [svgClass]="'item'"></svg-icon>
     </div>
-    <p class="item-name">{{ item.name }}</p>
+    <p class="item-name bg-primary">{{ item.name }}</p>
   </div>
 </div>

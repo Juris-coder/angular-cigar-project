@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICardItem } from './card.types';
 
 @Component({
@@ -9,4 +9,10 @@ import { ICardItem } from './card.types';
 export class CardComponent {
   @Input()
   items: ICardItem[] = [];
+
+  @Input()
+  selected: ICardItem['name'] | undefined;
+
+  @Output()
+  selectedChange = new EventEmitter<ICardItem['name']>();
 }

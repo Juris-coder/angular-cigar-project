@@ -1,0 +1,10 @@
+<div class="item-selection-container center-content">
+  <div class="notice">Continue with the color selection:</div>
+
+  <app-cards
+    title="Choose all color"
+    [items]="colors"
+    [selected]="selectedColor"
+    (selectedChange)="emitColorSelection($event)"
+  ></app-cards>
+</div>

@@ -1,0 +1,46 @@
+@import "../../questionnaire.component.scss";
+
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.item-name {
+  color: $primary;
+  font-family: $font-primary;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.item-button {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid $primary;
+  cursor: pointer;
+  .item {
+    fill: $mid-gray;
+  }
+  &:hover {
+    .item {
+      fill: $primary;
+    }
+    .item-name {
+      color: $white;
+      background-color: $primary;
+    }
+  }
+  .item-image-wrapper {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0.25rem;
+    flex: 1;
+    border-bottom: 1px solid $primary;
+  }
+  .item-name {
+    line-height: 1.3;
+  }
+}

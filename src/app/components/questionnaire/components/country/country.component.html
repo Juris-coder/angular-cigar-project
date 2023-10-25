@@ -10,19 +10,9 @@
     (selectedChange)="emitCountrySelection($event)"
   ></app-card>
 
-  <label class="radio-container" [class.bg-primary]="selectedCountry === ''">
-    <div class="radio-dot-container center-content bg-primary">
-      <div class="radio-dot center-content bg-white">
-        <div class="dot bg-primary" [hidden]="selectedCountry !== ''"></div>
-      </div>
-    </div>
-    <div class="label center-content">
-      <input
-        type="radio"
-        [checked]="selectedCountry === ''"
-        (change)="evaluateCheckbox($event)"
-      />
-      Choose all regions
-    </div>
-  </label>
+  <app-radio-input
+    title="Choose all regions"
+    [selected]="selectedCountry === ''"
+    (selectionChange)="evaluateCheckbox($event)"
+  ></app-radio-input>
 </div>

@@ -1,9 +1,12 @@
-<div class="container questionnaire">
-  <div class="step-card bg-white">
-    <div class="wrapper">
+<div class="container questionnaire center-content">
+  <div
+    class="step-card bg-white center-content"
+    [class.md]="modifiedAppearance"
+  >
+    <div class="wrapper center-content">
       <h2>{{ title }}</h2>
     </div>
-    <div class="form-wrapper">
+    <div class="form-wrapper center-content" [class.md]="modifiedAppearance">
       <router-outlet hidden></router-outlet>
       <div class="btn-group">
         <a [routerLink]="getStep(false)" class="btn secondary">Go back</a>

@@ -8,34 +8,27 @@
   height: 100%;
   padding-top: 5rem;
   padding-bottom: 5rem;
-  justify-content: center;
-  align-items: center;
-  display: flex;
 }
 
 .step-card {
   width: 100%;
   max-width: 35rem;
-  grid-column-gap: 3rem;
-  grid-row-gap: 3rem;
+  gap: 3rem;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding-top: 7rem;
   padding-bottom: 7rem;
-  display: flex;
   position: relative;
+  &.md {
+    gap: 1.5rem;
+  }
 }
 
 .wrapper {
   min-width: 16rem;
-  justify-content: center;
-  align-items: center;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   border-top: 2px solid $primary;
   border-bottom: 2px solid $primary;
-  display: flex;
 }
 
 .form-wrapper {
@@ -45,7 +38,9 @@
   grid-row-gap: 1.125rem;
   text-align: center;
   flex-direction: column;
-  display: flex;
+  &.md {
+    max-width: 20rem;
+  }
 }
 
 .shape-bevel {
@@ -78,8 +73,13 @@
   flex: 1;
 }
 
+.btn-group {
+  width: 16rem;
+}
+
 .notice {
   font-size: 0.75rem;
+  width: 16rem;
 }
 
 .input-container {
@@ -97,15 +97,13 @@
 }
 
 .input-label {
+  @extend .center-content;
   min-width: 2.5rem;
   background-color: $primary;
   color: $white;
   text-align: center;
-  justify-content: center;
-  align-items: center;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  display: flex;
   cursor: pointer;
 }
 

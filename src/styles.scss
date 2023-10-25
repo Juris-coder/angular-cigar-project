@@ -15,7 +15,6 @@ $text-spacing: -0.01125rem;
 // Colors
 $white: #e0ddd4;
 $primary: #c13d3d;
-$white: #e0ddd4;
 $light-gray: #b6a79b;
 $black: #1c1c1f;
 $mid-gray: #70665e;
@@ -46,6 +45,12 @@ body {
 .bg-primary {
   background-color: $primary;
   color: $white;
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {

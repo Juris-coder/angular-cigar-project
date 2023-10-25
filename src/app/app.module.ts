@@ -17,6 +17,9 @@ import { metaReducers, reducers } from './state/reducers';
 import { DateComponent } from './components/questionnaire/components/date/date.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { CountryComponent } from './components/questionnaire/components/country/country.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CardComponent } from './components/questionnaire/components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { FormsModule } from '@angular/forms';
     InputComponent,
     QuestionnaireComponent,
     DateComponent,
+    CountryComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +38,7 @@ import { FormsModule } from '@angular/forms';
     NgxSkeletonLoaderModule,
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
+    AngularSvgIconModule.forRoot(),
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),

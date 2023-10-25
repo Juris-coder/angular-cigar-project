@@ -1,0 +1,33 @@
+<div class="item-selection-container">
+  <div class="buttons-container">
+    <div
+      class="item-button"
+      *ngFor="let item of items"
+      [class.selected]="selected === item.name"
+      (click)="selectedChange.emit(item.name)"
+    >
+      <div class="item-image-wrapper center-content">
+        <svg-icon [src]="item.url" [svgClass]="'item'"></svg-icon>
+      </div>
+      <p class="item-name" [class.bg-primary]="selected === item.name">
+        {{ item.name }}
+      </p>
+    </div>
+  </div>
+
+  <label class="radio-container" [class.bg-primary]="selected === ''">
+    <div class="radio-dot-container center-content bg-primary">
+      <div class="radio-dot center-content bg-white">
+        <div class="dot bg-primary" [hidden]="selected !== ''"></div>
+      </div>
+    </div>
+    <div class="label center-content">
+      <input
+        type="radio"
+        [checked]="selected === ''"
+        (change)="evaluateCheckbox($event)"
+      />
+      {{ title }}
+    </div>
+  </label>
+</div>

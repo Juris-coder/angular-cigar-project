@@ -19,6 +19,7 @@ export class QuestionnaireComponent implements OnInit {
 
   title = '';
   isLastStep = false;
+  modifiedAppearance = false;
 
   private name: string | undefined;
   private currentRoute: QuestionnaireStep | undefined;
@@ -26,8 +27,8 @@ export class QuestionnaireComponent implements OnInit {
     dateOfBirth: [init.dateOfBirth, Validators.required],
     name: [init.name, [Validators.maxLength(50), Validators.required]],
     email: [init.email, [Validators.email, Validators.required]],
-    country: [init.country, Validators.required],
-    color: [init.color, Validators.required],
+    country: init.country,
+    color: init.color,
     strength: [init.strength, Validators.required],
   });
 
@@ -102,18 +103,23 @@ export class QuestionnaireComponent implements OnInit {
     switch (this.currentRoute) {
       case QuestionnaireStep.DateOfBirth:
         this.title = 'What is your age?';
+        this.modifiedAppearance = false;
         break;
       case QuestionnaireStep.Name:
         this.title = 'Tell us your name';
+        this.modifiedAppearance = false;
         break;
       case QuestionnaireStep.Country:
         this.title = `G'day, ${this.name}`;
+        this.modifiedAppearance = true;
         break;
       case QuestionnaireStep.Color:
         this.title = `Great choice so far, ${this.name}`;
+        this.modifiedAppearance = true;
         break;
       case QuestionnaireStep.Strength:
         this.title = `Nicely done, ${this.name}`;
+        this.modifiedAppearance = true;
         this.isLastStep = true;
         break;
     }

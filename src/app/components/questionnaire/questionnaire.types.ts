@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { InputComponent } from './components/input/input.component';
 import { DateComponent } from './components/date/date.component';
 import { CountryComponent } from './components/country/country.component';
+import { ColorComponent } from './components/color/color.component';
+import { StrengthComponent } from './components/strength/strength.component';
 
 export enum QuestionnaireStep {
   DateOfBirth = 'dateOfBirthInput',
@@ -33,11 +35,11 @@ export const questionnaireRoute: Routes = [
   },
   {
     path: QuestionnaireStep.Color,
-    component: InputComponent,
+    component: ColorComponent,
   },
   {
     path: QuestionnaireStep.Strength,
-    component: InputComponent,
+    component: StrengthComponent,
   },
 ];
 

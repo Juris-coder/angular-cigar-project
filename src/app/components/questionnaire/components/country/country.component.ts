@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ICardItem } from '../card/card.types';
+import { ICardItem } from '../cards/cards.types';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { IQuestionnaireState } from 'src/app/state/reducers';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { CigarCountry } from 'src/app/utils/types';
@@ -70,11 +68,5 @@ export class CountryComponent implements OnInit {
       name = 'United States of America' as CigarCountry;
     }
     this.store.dispatch(createUpdatePropertyAction('country')(name));
-  }
-
-  evaluateCheckbox({ target }: Event): void {
-    if ((target as HTMLInputElement).checked) {
-      this.store.dispatch(createUpdatePropertyAction('country')(''));
-    }
   }
 }

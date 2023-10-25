@@ -6,8 +6,16 @@
       [class.selected]="selected === item.name"
       (click)="selectedChange.emit(item.name)"
     >
-      <div class="item-image-wrapper center-content">
-        <svg-icon [src]="item.url" [svgClass]="'item'"></svg-icon>
+      <div
+        class="item-image-wrapper center-content"
+        [class.padding]="item.url.endsWith('.svg')"
+      >
+        <svg-icon
+          *ngIf="item.url.endsWith('.svg')"
+          [src]="item.url"
+          [svgClass]="'item'"
+        ></svg-icon>
+        <img *ngIf="!item.url.endsWith('.svg')" [src]="item.url" alt="" />
       </div>
       <p class="item-name" [class.bg-primary]="selected === item.name">
         {{ item.name }}

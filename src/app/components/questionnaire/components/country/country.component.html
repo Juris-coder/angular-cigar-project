@@ -1,18 +1,13 @@
-<div class="country-selection-container center-content">
+<div class="item-selection-container center-content">
   <div class="notice">
     Let’s start creating your taste profile. Please select your preferred
     region.
   </div>
 
-  <app-card
+  <app-cards
+    title="Choose all regions"
     [items]="countries"
     [selected]="selectedCountry"
     (selectedChange)="emitCountrySelection($event)"
-  ></app-card>
-
-  <app-radio-input
-    title="Choose all regions"
-    [selected]="selectedCountry === ''"
-    (selectionChange)="evaluateCheckbox($event)"
-  ></app-radio-input>
+  ></app-cards>
 </div>

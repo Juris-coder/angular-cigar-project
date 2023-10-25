@@ -19,7 +19,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { CountryComponent } from './components/questionnaire/components/country/country.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { CardComponent } from './components/questionnaire/components/card/card.component';
+import { CardsComponent } from './components/questionnaire/components/cards/cards.component';
+import { ColorComponent } from './components/questionnaire/components/color/color.component';
+import { StrengthComponent } from './components/questionnaire/components/strength/strength.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CardComponent } from './components/questionnaire/components/card/card.c
     QuestionnaireComponent,
     DateComponent,
     CountryComponent,
-    CardComponent,
+    CardsComponent,
+    ColorComponent,
+    StrengthComponent,
   ],
   imports: [
     BrowserModule,

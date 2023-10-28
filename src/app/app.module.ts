@@ -23,6 +23,8 @@ import { CardsComponent } from './components/questionnaire/components/cards/card
 import { ColorComponent } from './components/questionnaire/components/color/color.component';
 import { StrengthComponent } from './components/questionnaire/components/strength/strength.component';
 import { CheckboxComponent } from './components/questionnaire/components/checkbox/checkbox.component';
+import { ResultsComponent } from './components/results/results.component';
+import { CigarSearchEffects } from './state/effects/cigarSearch.effects';
 
 @NgModule({
   declarations: [
@@ -36,13 +38,14 @@ import { CheckboxComponent } from './components/questionnaire/components/checkbo
     ColorComponent,
     StrengthComponent,
     CheckboxComponent,
+    ResultsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgxSkeletonLoaderModule,
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([CigarSearchEffects]),
     StoreRouterConnectingModule.forRoot(),
     AngularSvgIconModule.forRoot(),
     StoreModule.forRoot(reducers, {

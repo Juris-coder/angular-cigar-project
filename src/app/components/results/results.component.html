@@ -1,0 +1,85 @@
+<router-outlet></router-outlet>
+<section class="section">
+  <div class="v-pad">
+    <div class="container">
+      <div class="layout">
+        <div class="hero-content">
+          <h1 class="text-primary">
+            Here are<br />your results,<br />{{ questionnaireData?.name }}
+          </h1>
+          <div class="subtitle-content">
+            <div class="subtitle-wrapper">
+              <p class="subtitle">
+                Thank you for investing your time into completing our cigars
+                tasting quiz!
+              </p>
+            </div>
+            <div class="btn-group">
+              <a
+                class="btn secondary"
+                routerLink="/questionnaire/strengthSelection"
+                >Go back</a
+              >
+              <a href="#" class="btn">Show my results</a>
+            </div>
+          </div>
+        </div>
+        <div class="container profile">
+          <div class="step-card center-content bg-primary">
+            <div class="wrapper white center-content">
+              <h2>{{ questionnaireData?.name }}'s taste profile</h2>
+            </div>
+            <div class="form-wrapper center-content">
+              <div class="profile-choices">
+                <div>
+                  <h3>Region</h3>
+                  <p class="subtitle white">
+                    {{ questionnaireData?.country || "All" }}
+                  </p>
+                </div>
+                <div>
+                  <h3>Cigar's color</h3>
+                  <p class="subtitle white">
+                    {{ questionnaireData?.color || "All" }}
+                  </p>
+                </div>
+                <div>
+                  <h3>Strength</h3>
+                  <p class="subtitle white">
+                    {{ questionnaireData?.strength || "All" }}
+                  </p>
+                </div>
+              </div>
+              <div class="flavours-container">
+                <h3>Flavours</h3>
+                <div class="flavours">
+                  <p
+                    *ngFor="let flavour of flavours"
+                    [class.selected]="randomBool"
+                  >
+                    {{ flavour }}
+                  </p>
+                </div>
+              </div>
+              <div class="pairings -container">
+                <h3>Recommended pairings</h3>
+                <div class="pairings">
+                  <p
+                    *ngFor="let pairing of pairings"
+                    [class.selected]="randomBool"
+                  >
+                    {{ pairing }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="shape-bevel top-left bg-white"></div>
+            <div class="shape-bevel top-right bg-white"></div>
+            <div class="shape-bevel bot-left bg-white"></div>
+            <div class="shape-bevel bot-right bg-white"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

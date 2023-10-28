@@ -6,6 +6,7 @@ import {
   questionnairePath,
   questionnaireRoute,
 } from './components/questionnaire/questionnaire.types';
+import { ResultsComponent } from './components/results/results.component';
 
 const routes: Routes = [
   {
@@ -17,11 +18,11 @@ const routes: Routes = [
     component: QuestionnaireComponent,
     children: questionnaireRoute,
   },
-  // {
-  //   path: 'results',
-  //   canActivate: [AuthGuard],
-  //   // component: Todo
-  // },
+  {
+    path: 'results',
+    // canActivate: [AuthGuard],
+    component: ResultsComponent,
+  },
   // { path: '**', component: PageNotFoundComponent }
 ];
 

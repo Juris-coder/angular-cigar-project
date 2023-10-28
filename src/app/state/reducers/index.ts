@@ -1,14 +1,19 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { localStorageSyncReducer } from './localStorage.reducer';
-import { CigarCountry, CigarColor, CigarStrength } from 'src/app/utils/types';
+import {
+  CigarCountry,
+  CigarColor,
+  CigarStrength,
+  ICigarSearchResult,
+} from 'src/app/utils/types';
 import { questionnaireReducer } from './questionnaire.reducer';
-import { QuestionnaireStep } from 'src/app/components/questionnaire/questionnaire.types';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+import { resultsLoadedReducer } from './results.reducer';
 
 export interface IStoreState {
   questionnaire: IQuestionnaireState;
   router: RouterReducerState;
-  // results: Partial<ICigarSearchResult>[];
+  results: Partial<ICigarSearchResult>[];
 }
 
 export interface IQuestionnaireState {
@@ -22,8 +27,8 @@ export interface IQuestionnaireState {
 
 export const reducers: ActionReducerMap<IStoreState> = {
   questionnaire: questionnaireReducer,
-  // results: cigarStoreReducer,
   router: routerReducer,
+  results: resultsLoadedReducer,
 };
 
 export const metaReducers: MetaReducer<IStoreState>[] = [

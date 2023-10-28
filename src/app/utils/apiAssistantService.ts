@@ -71,7 +71,11 @@ export class ApiAssistantService implements IApiAssistantService {
     }
 
     const queryStringArray = Object.keys(requestDictionary)
-      .filter((key) => key in this.searchKeysDictionary.parameters)
+      .filter(
+        (key) =>
+          key in this.searchKeysDictionary.parameters &&
+          !!requestDictionary[key as keyof IRequestParameters]
+      )
       .map(
         (key) =>
           `${

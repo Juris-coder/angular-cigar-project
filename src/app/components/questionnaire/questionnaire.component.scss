@@ -75,6 +75,9 @@
 
 .btn-group {
   width: 16rem;
+  &.md {
+    width: 20rem;
+  }
 }
 
 .notice {

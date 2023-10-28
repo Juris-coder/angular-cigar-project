@@ -8,7 +8,7 @@
     </div>
     <div class="form-wrapper center-content" [class.md]="modifiedAppearance">
       <router-outlet hidden></router-outlet>
-      <div class="btn-group">
+      <div class="btn-group" [class.md]="modifiedAppearance && isLastStep">
         <a [routerLink]="getStep(false)" class="btn secondary">Go back</a>
         <input
           *ngIf="!isLastStep"

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ICardItem } from '../cards/cards.types';
 
 @Component({
   selector: 'app-checkbox',
@@ -11,10 +10,10 @@ export class CheckboxComponent {
   title: string = '';
 
   @Input()
-  selected: ICardItem['name'] | undefined;
+  selected: string | undefined;
 
   @Output()
-  selectedChange = new EventEmitter<ICardItem['name']>();
+  selectedChange = new EventEmitter<string>();
 
   evaluateCheckbox({ target }: Event): void {
     if ((target as HTMLInputElement).checked) {

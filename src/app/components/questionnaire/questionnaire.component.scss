@@ -40,6 +40,7 @@
   flex-direction: column;
   &.md {
     max-width: 20rem;
+    width: 20rem;
   }
 }
 
@@ -76,6 +77,7 @@
 .btn-group {
   width: 16rem;
   &.md {
+    max-width: 20rem;
     width: 20rem;
   }
 }

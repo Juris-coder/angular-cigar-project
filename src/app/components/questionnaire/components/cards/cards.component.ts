@@ -18,10 +18,4 @@ export class CardsComponent {
 
   @Output()
   selectedChange = new EventEmitter<ICardItem['name']>();
-
-  evaluateCheckbox({ target }: Event): void {
-    if ((target as HTMLInputElement).checked) {
-      this.selectedChange.emit('');
-    }
-  }
 }

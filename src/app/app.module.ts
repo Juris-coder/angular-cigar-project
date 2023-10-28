@@ -22,6 +22,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CardsComponent } from './components/questionnaire/components/cards/cards.component';
 import { ColorComponent } from './components/questionnaire/components/color/color.component';
 import { StrengthComponent } from './components/questionnaire/components/strength/strength.component';
+import { CheckboxComponent } from './components/questionnaire/components/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { StrengthComponent } from './components/questionnaire/components/strengt
     CardsComponent,
     ColorComponent,
     StrengthComponent,
+    CheckboxComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,50 @@
+<div class="strength-container">
+  <div class="notice">Now, please select your preferred cigar’s strength:</div>
+
+  <div class="range-input-wrapper center-content">
+    <div class="cigar-strength-range center-content">
+      <div class="breakpoints">
+        <div class="breakpoint">
+          <p class="strength-text" (click)="updateStrengthValue(1)">Mild</p>
+        </div>
+        <div class="breakpoint">
+          <p class="strength-text" (click)="updateStrengthValue(2)">
+            Mild-Medium
+          </p>
+        </div>
+        <div class="breakpoint">
+          <p class="strength-text" (click)="updateStrengthValue(3)">Medium</p>
+        </div>
+        <div class="breakpoint">
+          <p class="strength-text" (click)="updateStrengthValue(4)">
+            Medium-Full
+          </p>
+        </div>
+        <div class="breakpoint">
+          <p class="strength-text" (click)="updateStrengthValue(5)">Full</p>
+        </div>
+      </div>
+      <div class="scales">
+        <div class="circle"></div>
+        <div class="scale"></div>
+        <div class="scale"></div>
+        <div class="scale"></div>
+        <div class="circle"></div>
+      </div>
+      <input
+        type="range"
+        min="1"
+        max="5"
+        [class.select-all]="selectedStrength === 0"
+        [ngModel]="selectedStrength"
+        (ngModelChange)="updateStrengthValue($event)"
+      />
+    </div>
+  </div>
+
+  <app-checkbox
+    title="Select all"
+    [selected]="strengthDictionary[selectedStrength]"
+    (selectedChange)="updateStrengthValue(0)"
+  ></app-checkbox>
+</div>

@@ -29,7 +29,7 @@ export class QuestionnaireComponent implements OnInit {
     email: [init.email, [Validators.email, Validators.required]],
     country: init.country,
     color: init.color,
-    strength: [init.strength, Validators.required],
+    strength: init.strength,
   });
 
   get isCurrentStepValid(): boolean {

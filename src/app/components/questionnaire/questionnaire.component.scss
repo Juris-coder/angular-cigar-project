@@ -10,66 +10,6 @@
   padding-bottom: 5rem;
 }
 
-.step-card {
-  width: 100%;
-  max-width: 35rem;
-  gap: 3rem;
-  flex-direction: column;
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-  position: relative;
-  &.md {
-    gap: 1.5rem;
-  }
-}
-
-.wrapper {
-  min-width: 16rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-top: 2px solid $primary;
-  border-bottom: 2px solid $primary;
-}
-
-.form-wrapper {
-  max-width: 16rem;
-  min-width: 16rem;
-  grid-column-gap: 1.125rem;
-  grid-row-gap: 1.125rem;
-  text-align: center;
-  flex-direction: column;
-  &.md {
-    max-width: 20rem;
-    width: 20rem;
-  }
-}
-
-.shape-bevel {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 100%;
-  position: absolute;
-  &.top-left {
-    top: -1.5rem;
-    left: -1.5rem;
-  }
-
-  &.top-right {
-    top: -1.5rem;
-    right: -1.5rem;
-  }
-
-  &.bot-left {
-    bottom: -1.5rem;
-    left: -1.5rem;
-  }
-
-  &.bot-right {
-    bottom: -1.5rem;
-    right: -1.5rem;
-  }
-}
-
 .btn {
   flex: 1;
 }
@@ -77,7 +17,6 @@
 .btn-group {
   width: 16rem;
   &.md {
-    max-width: 20rem;
     width: 20rem;
   }
 }

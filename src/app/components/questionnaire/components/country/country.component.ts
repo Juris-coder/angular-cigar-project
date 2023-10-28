@@ -65,7 +65,7 @@ export class CountryComponent implements OnInit {
 
   emitCountrySelection(name: string): void {
     if (name === 'USA') {
-      name = 'United States of America' as CigarCountry;
+      name = 'United States of America';
     }
     this.store.dispatch(createUpdatePropertyAction('country')(name));
   }

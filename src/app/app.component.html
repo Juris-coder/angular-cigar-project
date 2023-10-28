@@ -1,4 +1,4 @@
-<div class="page-wrapper" [class.red]="(route$ | async) !== '/'">
+<div class="page-wrapper" [class.red]="isRedBackground()">
   <div class="navbar bg-white">
     <div class="container">
       <div class="nav-content">
@@ -6,9 +6,7 @@
           <a
             routerLink="/"
             class="logo"
-            [ngClass]="
-              (route$ | async) !== '/' ? 'text-secondary' : 'text-primary'
-            "
+            [ngClass]="isRedBackground() ? 'text-secondary' : 'text-primary'"
             >Fumers Club</a
           >
           <div class="nav-menu">

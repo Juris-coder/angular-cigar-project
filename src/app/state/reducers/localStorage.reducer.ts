@@ -1,4 +1,4 @@
-import { ActionReducer, State } from '@ngrx/store';
+import { ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { IStoreState } from '.';
 

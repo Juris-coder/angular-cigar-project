@@ -1,5 +1,8 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { localStorageSyncReducer } from './localStorage.reducer';
+import {
+  clearStateMetaReducer,
+  localStorageSyncReducer,
+} from './localStorage.reducer';
 import {
   CigarCountry,
   CigarColor,
@@ -33,4 +36,5 @@ export const reducers: ActionReducerMap<IStoreState> = {
 
 export const metaReducers: MetaReducer<IStoreState>[] = [
   localStorageSyncReducer,
+  clearStateMetaReducer,
 ];

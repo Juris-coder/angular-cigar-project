@@ -17,3 +17,5 @@ export const resultsLoaded = createAction(
   '[Results] Load Success',
   props<{ results: Partial<ICigarSearchResult>[] }>()
 );
+
+export const clearState = createAction('[State] Clear state');

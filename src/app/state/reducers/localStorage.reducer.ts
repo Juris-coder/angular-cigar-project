@@ -19,6 +19,8 @@ export const localStorageSyncReducer = (
           'color',
           'strength',
         ],
+      },
+      {
         results: ['cigars', 'page', 'count'],
       },
     ],

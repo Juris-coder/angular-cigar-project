@@ -5,7 +5,9 @@
       <div class="layout">
         <div class="hero-content">
           <h1 class="text-primary">
-            Here are<br />your results,<br />{{ questionnaireData?.name }}
+            Here are<br />your results,<br />{{
+              questionnaireData?.name || "stranger"
+            }}
           </h1>
           <div class="subtitle-content">
             <div class="subtitle-wrapper">
@@ -20,11 +22,15 @@
                 routerLink="/questionnaire/strengthSelection"
                 >Go back</a
               >
-              <a href="#" class="btn">Show my results</a>
+              <a (click)="scrollTo()" class="btn">Show my results</a>
             </div>
           </div>
         </div>
         <div class="container profile">
+          <svg-icon
+            src="assets/images/left-hand.svg"
+            [svgClass]="'hand'"
+          ></svg-icon>
           <div class="step-card center-content bg-primary">
             <div class="wrapper white center-content">
               <h2>{{ questionnaireData?.name }}'s taste profile</h2>
@@ -81,5 +87,65 @@
         </div>
       </div>
     </div>
+  </div>
+  <div #cigars_container class="container cigars">
+    <div *ngFor="let cigar of cigars" class="cigar">
+      <div class="cigar-heading text-primary">
+        <h2>{{ cigar.name }}</h2>
+      </div>
+      <div class="cigar-cell">
+        <div class="cigar-part-row">
+          <p class="subheading">Region</p>
+          <p class="subtitle">{{ cigar.country }}</p>
+        </div>
+        <div class="cigar-part-row">
+          <p class="subheading">Filler</p>
+          <p class="subtitle">{{ cigar.filler }}</p>
+        </div>
+        <div class="cigar-part-row">
+          <p class="subheading">Wrapper</p>
+          <p class="subtitle">{{ cigar.wrapper }}</p>
+        </div>
+        <div class="cigar-part-row">
+          <p class="subheading">Color</p>
+          <p class="subtitle">{{ cigar.color }}</p>
+        </div>
+        <div class="cigar-part-row">
+          <p class="subheading">Strength</p>
+          <p class="subtitle">{{ cigar.strength }}</p>
+        </div>
+        <div class="cigar-part-row">
+          <p class="subheading">Length</p>
+          <p class="subtitle">{{ cigar.length }} in.</p>
+        </div>
+        <div class="cigar-part-row">
+          <p class="subheading">Ring</p>
+          <p class="subtitle">{{ cigar.ringGauge }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="pagesAmount" class="pages-selection-container">
+    <svg-icon
+      src="assets/images/right-hand.svg"
+      [svgClass]="'hand'"
+      (click)="loadPage($any(currentPage) - 1)"
+    ></svg-icon>
+    <div class="pages-selection">
+      <button
+        *ngFor="let page of getPagesToShow()"
+        class="page-selection-btn"
+        [class.selected]="page === currentPage"
+        [disabled]="page === currentPage"
+        (click)="loadPage(page)"
+      >
+        {{ page.toString().padStart(2, "0") }}
+      </button>
+    </div>
+    <svg-icon
+      src="assets/images/left-hand.svg"
+      [svgClass]="'hand'"
+      (click)="loadPage($any(currentPage) + 1)"
+    ></svg-icon>
   </div>
 </section>

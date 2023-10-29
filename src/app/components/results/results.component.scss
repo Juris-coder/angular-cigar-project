@@ -1,15 +1,26 @@
 @import "../../../styles.scss";
 
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+}
+
 .profile {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
+  .hand {
+    width: 100px;
+    height: 40px;
+  }
 }
 
 .profile-choices {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
+  width: 100%;
   div {
     flex: 1;
     display: flex;
@@ -49,5 +60,79 @@
       border-radius: 6px;
       background: $white;
     }
+  }
+}
+
+.hand {
+  fill: $primary;
+  z-index: 1;
+  position: relative;
+}
+
+.cigars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid $primary;
+
+  .cigar {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $primary;
+
+    .cigar-cell {
+      width: 95%;
+      margin: 5rem auto;
+    }
+
+    .cigar-heading {
+      border-bottom: 2px solid $primary;
+      padding: 0.75rem 0;
+    }
+
+    .cigar-part-row {
+      display: flex;
+      border-bottom: 2px solid $mid-gray;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+
+      .subheading {
+        text-transform: uppercase;
+        font-size: 1rem;
+        font-weight: 700;
+        color: $mid-gray;
+        font-family: $font-primary;
+      }
+
+      .subtitle {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+
+.pages-selection-container,
+.pages-selection {
+  display: flex;
+  justify-content: center;
+}
+
+.pages-selection-container {
+  gap: 3rem;
+  .hand {
+    cursor: pointer;
+  }
+}
+
+.page-selection-btn {
+  cursor: pointer;
+  background: none;
+  font-size: 1rem;
+  font-family: $font-secondary;
+  font-weight: 700;
+  width: fit-content;
+  color: $light-gray;
+  border: none;
+  &.selected {
+    color: $primary;
   }
 }

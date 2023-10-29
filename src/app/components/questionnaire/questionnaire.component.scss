@@ -12,10 +12,23 @@
 
 .btn {
   flex: 1;
+  &.md {
+    flex: unset;
+    width: 8rem;
+  }
+}
+
+.left-hand {
+  margin-left: -60px;
+}
+
+.right-hand {
+  margin-right: -60px;
 }
 
 .btn-group {
   width: 16rem;
+  justify-content: center;
   &.md {
     width: 20rem;
   }

@@ -8,7 +8,11 @@
     </div>
     <div class="form-wrapper center-content" [class.md]="modifiedAppearance">
       <router-outlet hidden></router-outlet>
-      <div class="btn-group" [class.md]="modifiedAppearance && isLastStep">
+      <div
+        *ngIf="!isRestricted"
+        class="btn-group"
+        [class.md]="modifiedAppearance && isLastStep"
+      >
         <a [routerLink]="getStep(false)" class="btn secondary">Go back</a>
         <input
           *ngIf="!isLastStep"
@@ -27,6 +31,21 @@
           value="Submit results"
           class="btn"
           [class.disabled]="!isCurrentStepValid"
+        />
+      </div>
+      <div *ngIf="isRestricted" class="btn-group">
+        <img
+          class="left-hand"
+          src="assets/images/left-hand.svg"
+          alt="Symbolic left hand"
+        />
+        <a routerLink="/" class="btn primary" [class.md]="isRestricted"
+          >Go back</a
+        >
+        <img
+          class="right-hand"
+          src="assets/images/right-hand.svg"
+          alt="Symbolic right hand"
         />
       </div>
     </div>

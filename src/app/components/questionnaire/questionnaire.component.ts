@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Route } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   selectCurrentRoute,
   selectQuestionnaireData,
 } from 'src/app/state/selectors/cigarStore.selector';
-import { QuestionnaireStep, questionnaireRoute } from './questionnaire.types';
+import { QuestionnaireStep } from './questionnaire.types';
 import { FormBuilder, Validators } from '@angular/forms';
 import { initialQuestionnaireState as init } from 'src/app/state/reducers/questionnaire.reducer';
 
@@ -19,10 +18,11 @@ export class QuestionnaireComponent implements OnInit {
 
   title = '';
   isLastStep = false;
+  isRestricted = false;
   modifiedAppearance = false;
 
   private name: string | undefined;
-  private currentRoute: QuestionnaireStep | undefined;
+  private currentRoute: string | undefined;
   private questionnaireForm = this.formBuilder.group({
     dateOfBirth: [init.dateOfBirth, Validators.required],
     name: [init.name, [Validators.maxLength(50), Validators.required]],
@@ -31,6 +31,14 @@ export class QuestionnaireComponent implements OnInit {
     color: init.color,
     strength: init.strength,
   });
+
+  private readonly order: QuestionnaireStep[] = [
+    QuestionnaireStep.DateOfBirth,
+    QuestionnaireStep.Name,
+    QuestionnaireStep.Country,
+    QuestionnaireStep.Color,
+    QuestionnaireStep.Strength,
+  ];
 
   get isCurrentStepValid(): boolean {
     if (!this.currentRoute) {
@@ -79,27 +87,28 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   getStep(next: boolean): string {
-    const currentIndex = questionnaireRoute.findIndex(
-      ({ path }: Route) => this.currentRoute === path
+    const currentIndex = this.order.findIndex(
+      (path) => this.currentRoute === path
     );
-    const isStepLast = questionnaireRoute.length === currentIndex + 1;
+    const isStepLast = this.order.length === currentIndex + 1;
     if (next) {
       if (isStepLast) {
         return '/results';
       }
 
-      return questionnaireRoute[currentIndex + 1].path as QuestionnaireStep;
+      return this.order[currentIndex + 1];
     }
 
-    if (currentIndex <= 1) {
+    if (currentIndex < 1) {
       return '/';
     }
 
-    return questionnaireRoute[currentIndex - 1].path as QuestionnaireStep;
+    return this.order[currentIndex - 1];
   }
 
   private modifyTitle(): void {
     this.isLastStep = false;
+    this.isRestricted = false;
     switch (this.currentRoute) {
       case QuestionnaireStep.DateOfBirth:
         this.title = 'What is your age?';
@@ -121,6 +130,10 @@ export class QuestionnaireComponent implements OnInit {
         this.title = `Nicely done, ${this.name}`;
         this.modifiedAppearance = true;
         this.isLastStep = true;
+        break;
+      case 'restricted':
+        this.title = `oops, sorry...`;
+        this.isRestricted = true;
         break;
     }
   }

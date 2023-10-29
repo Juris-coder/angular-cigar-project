@@ -1,9 +1,28 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { IQuestionnaireState } from '../reducers/index';
 import { getRouterSelectors } from '@ngrx/router-store';
+import { ICigarSearchResult, ICigarsDatabase } from 'src/app/utils/types';
 
 export const selectQuestionnaireFeature =
   createFeatureSelector<IQuestionnaireState>('questionnaire');
+
+export const selectResultsFeature =
+  createFeatureSelector<ICigarsDatabase>('results');
+
+export const selectCigars = createSelector(
+  selectResultsFeature,
+  ({ cigars }) => cigars
+);
+
+export const selectPage = createSelector(
+  selectResultsFeature,
+  ({ page }) => page
+);
+
+export const selectCount = createSelector(
+  selectResultsFeature,
+  ({ count }) => count
+);
 
 export const selectQuestionnaireData = createSelector(
   selectQuestionnaireFeature,

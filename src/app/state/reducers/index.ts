@@ -7,7 +7,7 @@ import {
   CigarCountry,
   CigarColor,
   CigarStrength,
-  ICigarSearchResult,
+  ICigarsDatabase,
 } from 'src/app/utils/types';
 import { questionnaireReducer } from './questionnaire.reducer';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
@@ -16,7 +16,7 @@ import { resultsLoadedReducer } from './results.reducer';
 export interface IStoreState {
   questionnaire: IQuestionnaireState;
   router: RouterReducerState;
-  results: Partial<ICigarSearchResult>[];
+  results: ICigarsDatabase;
 }
 
 export interface IQuestionnaireState {

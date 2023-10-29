@@ -7,6 +7,7 @@ import {
   questionnaireRoute,
 } from './components/questionnaire/questionnaire.types';
 import { ResultsComponent } from './components/results/results.component';
+import { AgeGuard } from './state/guards/age.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'results',
-    // canActivate: [AuthGuard],
+    canActivate: [AgeGuard],
     component: ResultsComponent,
   },
   // { path: '**', component: PageNotFoundComponent }

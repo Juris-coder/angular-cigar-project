@@ -30,7 +30,7 @@ export class CigarSearchEffects {
             strength,
           })
           .pipe(
-            map(({ cigars }) => resultsLoaded({ results: cigars })),
+            map((results) => resultsLoaded({ results })),
             catchError(() => of(loadResultsError()))
           )
       )

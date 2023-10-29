@@ -1,6 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
@@ -25,6 +24,8 @@ import { StrengthComponent } from './components/questionnaire/components/strengt
 import { CheckboxComponent } from './components/questionnaire/components/checkbox/checkbox.component';
 import { ResultsComponent } from './components/results/results.component';
 import { CigarSearchEffects } from './state/effects/cigarSearch.effects';
+import { AgeGuard } from './state/guards/age.guard';
+import { RestrictedComponent } from './components/questionnaire/components/restricted/restricted.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CigarSearchEffects } from './state/effects/cigarSearch.effects';
     StrengthComponent,
     CheckboxComponent,
     ResultsComponent,
+    RestrictedComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,7 @@ import { CigarSearchEffects } from './state/effects/cigarSearch.effects';
     FontAwesomeModule,
     FormsModule,
   ],
-  providers: [ApiAssistantService],
+  providers: [ApiAssistantService, AgeGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

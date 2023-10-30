@@ -13,6 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    title: 'Fumers club welcomes you!',
   },
   {
     path: questionnairePath,
@@ -23,6 +24,7 @@ const routes: Routes = [
     path: 'results',
     canActivate: [AgeGuard],
     component: ResultsComponent,
+    title: 'Fumers club: Here are the results!',
   },
   // { path: '**', component: PageNotFoundComponent }
 ];

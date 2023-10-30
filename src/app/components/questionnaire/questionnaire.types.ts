@@ -26,30 +26,36 @@ export const questionnaireRoute: Routes = [
   {
     path: 'restricted',
     component: RestrictedComponent,
+    title: 'Fumers club: You’re not of legal smoking age',
   },
   {
     path: QuestionnaireStep.DateOfBirth,
     component: DateComponent,
+    title: 'Fumers club: What is your age?',
   },
   {
     path: QuestionnaireStep.Name,
     component: InputComponent,
     canActivate: [AgeGuard],
+    title: 'Fumers club: Tell us your name',
   },
   {
     path: QuestionnaireStep.Country,
     component: CountryComponent,
     canActivate: [AgeGuard],
+    title: 'Fumers club: Select your preferred region',
   },
   {
     path: QuestionnaireStep.Color,
     component: ColorComponent,
     canActivate: [AgeGuard],
+    title: 'Fumers club: Continue with the color selection',
   },
   {
     path: QuestionnaireStep.Strength,
     component: StrengthComponent,
     canActivate: [AgeGuard],
+    title: 'Fumers club: Select cigar’s strength',
   },
 ];
 

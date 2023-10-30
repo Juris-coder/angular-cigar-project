@@ -26,6 +26,7 @@ import { ResultsComponent } from './components/results/results.component';
 import { CigarSearchEffects } from './state/effects/cigarSearch.effects';
 import { AgeGuard } from './state/guards/age.guard';
 import { RestrictedComponent } from './components/questionnaire/components/restricted/restricted.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { RestrictedComponent } from './components/questionnaire/components/restr
     CheckboxComponent,
     ResultsComponent,
     RestrictedComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

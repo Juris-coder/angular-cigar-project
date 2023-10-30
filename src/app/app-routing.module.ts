@@ -11,6 +11,7 @@ import { DateComponent } from './components/questionnaire/components/date/date.c
 import { InputComponent } from './components/questionnaire/components/input/input.component';
 import { RestrictedComponent } from './components/questionnaire/components/restricted/restricted.component';
 import { StrengthComponent } from './components/questionnaire/components/strength/strength.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -69,7 +70,15 @@ const routes: Routes = [
     component: ResultsComponent,
     title: 'Fumers club: Here are the results!',
   },
-  // { path: '**', component: PageNotFoundComponent }
+  {
+    path: '404',
+    component: PageNotFoundComponent,
+    title: 'Fumers club: This page does not exist',
+  },
+  {
+    path: '**',
+    redirectTo: '/404',
+  },
 ];
 
 @NgModule({

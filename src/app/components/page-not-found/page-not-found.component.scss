@@ -1,0 +1,29 @@
+@import "../../../styles.scss";
+
+.text-container,
+.btn-group {
+  flex-direction: column;
+  width: 24rem;
+}
+
+.text-container {
+  gap: 3rem;
+}
+
+.back-button-container {
+  border-top: 2px solid $primary;
+  text-align: center;
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.not-found-container {
+  flex-direction: column;
+  padding-top: 5rem;
+  margin-bottom: -2rem;
+  gap: 4rem;
+}
+
+.not-found-heading {
+  font-size: 6rem;
+}

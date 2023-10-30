@@ -72,27 +72,36 @@
 .cigars {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: 1px solid $primary;
+  gap: 2px;
 
   .cigar {
     display: flex;
     flex-direction: column;
-    border: 1px solid $primary;
+    outline: 2px solid $primary;
+    min-width: 0;
 
     .cigar-cell {
-      width: 95%;
+      width: 90%;
       margin: 5rem auto;
     }
 
     .cigar-heading {
       border-bottom: 2px solid $primary;
       padding: 0.75rem 0;
+      h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: auto;
+        width: 90%;
+      }
     }
 
     .cigar-part-row {
       display: flex;
       border-bottom: 2px solid $mid-gray;
       justify-content: space-between;
+      align-items: center;
       padding: 0.5rem 0;
 
       .subheading {

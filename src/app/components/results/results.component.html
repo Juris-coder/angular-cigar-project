@@ -91,36 +91,36 @@
   <div #cigars_container class="container cigars">
     <div *ngFor="let cigar of cigars" class="cigar">
       <div class="cigar-heading text-primary">
-        <h2>{{ cigar.name }}</h2>
+        <h2>{{ cigar.name || "Not specified" }}</h2>
       </div>
       <div class="cigar-cell">
         <div class="cigar-part-row">
           <p class="subheading">Region</p>
-          <p class="subtitle">{{ cigar.country }}</p>
+          <p class="subtitle">{{ cigar.country || "Not specified" }}</p>
         </div>
         <div class="cigar-part-row">
           <p class="subheading">Filler</p>
-          <p class="subtitle">{{ cigar.filler }}</p>
+          <p class="subtitle">{{ cigar.filler || "Not specified" }}</p>
         </div>
         <div class="cigar-part-row">
           <p class="subheading">Wrapper</p>
-          <p class="subtitle">{{ cigar.wrapper }}</p>
+          <p class="subtitle">{{ cigar.wrapper || "Not specified" }}</p>
         </div>
         <div class="cigar-part-row">
           <p class="subheading">Color</p>
-          <p class="subtitle">{{ cigar.color }}</p>
+          <p class="subtitle">{{ cigar.color || "Not specified" }}</p>
         </div>
         <div class="cigar-part-row">
           <p class="subheading">Strength</p>
-          <p class="subtitle">{{ cigar.strength }}</p>
+          <p class="subtitle">{{ cigar.strength || "Not specified" }}</p>
         </div>
         <div class="cigar-part-row">
           <p class="subheading">Length</p>
-          <p class="subtitle">{{ cigar.length }} in.</p>
+          <p class="subtitle">{{ cigar.length || "Not specified" }} in.</p>
         </div>
         <div class="cigar-part-row">
           <p class="subheading">Ring</p>
-          <p class="subtitle">{{ cigar.ringGauge }}</p>
+          <p class="subtitle">{{ cigar.ringGauge || "Not specified" }}</p>
         </div>
       </div>
     </div>

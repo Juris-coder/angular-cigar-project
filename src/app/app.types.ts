@@ -1,3 +1,4 @@
+import { RouterReducerState } from '@ngrx/router-store';
 import { Observable } from 'rxjs';
 
 export interface IRequestParameters {
@@ -16,7 +17,7 @@ export interface IApiAssistantService {
   getCigars(
     page: number,
     requestDictionary?: IRequestParameters
-  ): Observable<ICigarsDatabase>;
+  ): Observable<ICigarsDatabaseState>;
   getCigarById(cigarId: number): Observable<{ cigar: ICigarSearchResult }>;
 }
 
@@ -24,8 +25,23 @@ export interface IBrandsDatabase extends ICommonSearchResult {
   brands: IBrandSearchResult[];
 }
 
-export interface ICigarsDatabase extends ICommonSearchResult {
+export interface ICigarsDatabaseState extends ICommonSearchResult {
   cigars: ICigarSearchResult[];
+}
+
+export interface IStoreState {
+  questionnaire: IQuestionnaireState;
+  router: RouterReducerState;
+  results: ICigarsDatabaseState;
+}
+
+export interface IQuestionnaireState {
+  dateOfBirth: string;
+  name: string;
+  email: string;
+  country: CigarCountry;
+  color: CigarColor;
+  strength: CigarStrength;
 }
 
 export interface IBrandSearchResult {

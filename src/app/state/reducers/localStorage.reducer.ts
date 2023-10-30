@@ -1,9 +1,9 @@
 import { ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { IStoreState } from '.';
 import { clearState } from '../actions/cigarStore.actions';
 import { initialQuestionnaireState } from './questionnaire.reducer';
 import { resultsInitialState } from './results.reducer';
+import { IStoreState } from 'src/app/app.types';
 
 export const localStorageSyncReducer = (
   reducer: ActionReducer<IStoreState>

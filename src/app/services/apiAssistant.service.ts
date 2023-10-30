@@ -4,10 +4,10 @@ import {
   IBrandSearchResult,
   IBrandsDatabase,
   ICigarSearchResult,
-  ICigarsDatabase,
+  ICigarsDatabaseState,
   IRequestParameters,
-} from './types';
-import { IApiAssistantService } from './types';
+} from '../app.types';
+import { IApiAssistantService } from '../app.types';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -62,7 +62,7 @@ export class ApiAssistantService implements IApiAssistantService {
   getCigars(
     page: number,
     requestDictionary?: IRequestParameters
-  ): Observable<ICigarsDatabase> {
+  ): Observable<ICigarsDatabaseState> {
     const requestBody = `${this.searchKeysDictionary.paths.cigars}?${this.searchKeysDictionary.parameters.page}=${page}`;
     if (!requestDictionary || !Object.keys(requestDictionary).length) {
       return this.makeRequest(requestBody);

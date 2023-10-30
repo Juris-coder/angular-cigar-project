@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IQuestionnaireState } from '../reducers';
-import { ICigarsDatabase } from 'src/app/utils/types';
+import { ICigarsDatabaseState, IQuestionnaireState } from 'src/app/app.types';
 
 export const createUpdatePropertyAction = (key: keyof IQuestionnaireState) =>
   createAction(`[Questionnaire] Update ${key}`, (value: string) => ({
@@ -15,7 +14,7 @@ export const loadResultsError = createAction('[Results] Load FAILED');
 
 export const resultsLoaded = createAction(
   '[Results] Load Success',
-  props<{ results: ICigarsDatabase }>()
+  props<{ results: ICigarsDatabaseState }>()
 );
 
 export const clearState = createAction('[State] Clear state');

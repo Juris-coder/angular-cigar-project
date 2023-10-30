@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError, of, withLatestFrom } from 'rxjs';
-import { ApiAssistantService } from 'src/app/utils/apiAssistantService';
+import { ApiAssistantService } from 'src/app/services/apiAssistant.service';
 import {
   loadResultsAction,
   loadResultsError,

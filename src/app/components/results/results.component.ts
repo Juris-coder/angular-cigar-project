@@ -1,12 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadResultsAction } from 'src/app/state/actions/cigarStore.actions';
-import { IQuestionnaireState } from 'src/app/state/reducers';
 import {
   selectQuestionnaireData,
   selectResultsFeature,
 } from 'src/app/state/selectors/cigarStore.selector';
-import { ICigarSearchResult } from 'src/app/utils/types';
+import { ICigarSearchResult, IQuestionnaireState } from 'src/app/app.types';
 
 @Component({
   selector: 'app-results',

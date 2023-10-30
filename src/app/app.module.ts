@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
 import { InputComponent } from './components/questionnaire/components/input/input.component';
-import { ApiAssistantService } from './utils/apiAssistantService';
+import { ApiAssistantService } from './services/apiAssistant.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { StoreModule } from '@ngrx/store';

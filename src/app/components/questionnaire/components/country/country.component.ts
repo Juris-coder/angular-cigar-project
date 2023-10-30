@@ -3,7 +3,7 @@ import { ICardItem } from '../cards/cards.types';
 import { Store } from '@ngrx/store';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
-import { CigarCountry } from 'src/app/utils/types';
+import { CigarCountry } from 'src/app/app.types';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',

@@ -3,30 +3,10 @@ import {
   clearStateMetaReducer,
   localStorageSyncReducer,
 } from './localStorage.reducer';
-import {
-  CigarCountry,
-  CigarColor,
-  CigarStrength,
-  ICigarsDatabase,
-} from 'src/app/utils/types';
 import { questionnaireReducer } from './questionnaire.reducer';
-import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+import { routerReducer } from '@ngrx/router-store';
 import { resultsLoadedReducer } from './results.reducer';
-
-export interface IStoreState {
-  questionnaire: IQuestionnaireState;
-  router: RouterReducerState;
-  results: ICigarsDatabase;
-}
-
-export interface IQuestionnaireState {
-  dateOfBirth: string;
-  name: string;
-  email: string;
-  country: CigarCountry;
-  color: CigarColor;
-  strength: CigarStrength;
-}
+import { IStoreState } from 'src/app/app.types';
 
 export const reducers: ActionReducerMap<IStoreState> = {
   questionnaire: questionnaireReducer,

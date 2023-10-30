@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ICardItem } from '../cards/cards.types';
 import { Store } from '@ngrx/store';
-import { CigarColor } from 'src/app/utils/types';
+import { CigarColor } from 'src/app/app.types';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
-import { CigarStrength } from 'src/app/utils/types';
+import { CigarStrength } from 'src/app/app.types';
 
 @Component({
   selector: 'app-strength',

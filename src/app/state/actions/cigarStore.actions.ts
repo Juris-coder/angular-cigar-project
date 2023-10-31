@@ -2,9 +2,12 @@ import { createAction, props } from '@ngrx/store';
 import { ICigarsDatabaseState, IQuestionnaireState } from 'src/app/app.types';
 
 export const createUpdatePropertyAction = (key: keyof IQuestionnaireState) =>
-  createAction(`[Questionnaire] Update ${key}`, (value: string) => ({
-    value,
-  }));
+  createAction(
+    `[Questionnaire] Update ${key}`,
+    (value: IQuestionnaireState[keyof IQuestionnaireState]) => ({
+      value,
+    })
+  );
 
 export const loadResultsAction = createAction(
   '[Results] Load',

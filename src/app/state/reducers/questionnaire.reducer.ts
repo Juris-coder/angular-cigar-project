@@ -3,7 +3,7 @@ import { createUpdatePropertyAction } from '../actions/cigarStore.actions';
 import { IQuestionnaireState } from 'src/app/app.types';
 
 export const initialQuestionnaireState: IQuestionnaireState = {
-  dateOfBirth: '',
+  dateOfBirth: undefined,
   name: '',
   email: '',
   country: '',

@@ -12,6 +12,10 @@ export class AgeGuard {
     return this.store.select(selectQuestionnaireData).pipe(
       take(1),
       map(({ dateOfBirth }) => {
+        if (!dateOfBirth) {
+          return false;
+        }
+
         const date = isAdult(dateOfBirth);
         if (date === undefined) {
           this.router.navigate(['/questionnaire']);

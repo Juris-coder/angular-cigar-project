@@ -36,7 +36,7 @@ export interface IStoreState {
 }
 
 export interface IQuestionnaireState {
-  dateOfBirth: string;
+  dateOfBirth: Date | undefined;
   name: string;
   email: string;
   country: CigarCountry;

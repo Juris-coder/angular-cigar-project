@@ -1,4 +1,4 @@
-export const isAdult = (date: string): boolean | undefined => {
+export const isAdult = (date: Date): boolean | undefined => {
   const inputDate = new Date(date);
   const currentDate = new Date();
 

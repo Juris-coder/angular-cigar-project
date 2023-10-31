@@ -1,15 +1,54 @@
 <div class="input-container">
   <div class="input-group">
     <label for="date" class="input-label"
-      ><fa-icon class="fa-2x" [icon]="faCalendarDays"></fa-icon></label
-    ><input
-      type="date"
-      class="input"
-      name="date"
-      [value]="(questionnaireData$ | async)?.dateOfBirth"
-      (change)="updateDateValue($event)"
-    />
+      ><fa-icon class="fa-2x" [icon]="faCalendarDays"></fa-icon
+    ></label>
+    <div class="input-wrapper input">
+      <div>
+        <input
+          class="day"
+          type="text"
+          [value]="day"
+          placeholder="DD"
+          (input)="validateInput($event)"
+          (keyup)="onInput($event)"
+          (keydown)="onDelete($event)"
+          (focusout)="onFocusOut($event, 'day')"
+          min="01"
+          max="31"
+          maxlength="2"
+        />
+        /
+        <input
+          class="month"
+          type="text"
+          [value]="month"
+          placeholder="MM"
+          (input)="validateInput($event)"
+          (keyup)="onInput($event)"
+          (keydown)="onDelete($event)"
+          (focusout)="onFocusOut($event, 'month')"
+          min="01"
+          max="12"
+          maxlength="2"
+        />
+        /
+        <input
+          class="year"
+          type="text"
+          [value]="year"
+          placeholder="YYYY"
+          (input)="validateInput($event)"
+          (keyup)="onInput($event)"
+          (keydown)="onDelete($event)"
+          (focusout)="onFocusOut($event, 'year')"
+          max="2023"
+          maxlength="4"
+        />
+      </div>
+    </div>
   </div>
+
   <div class="notice">
     You must be over 18 years old in order to continue with out website
   </div>

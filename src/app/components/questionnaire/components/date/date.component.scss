@@ -1,0 +1,44 @@
+@import "../../questionnaire.component.scss";
+
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  div {
+    width: 50%;
+    display: flex;
+    font-family: $font-primary;
+    align-items: center;
+    .day {
+      flex: 2;
+    }
+    .month {
+      flex: 3;
+    }
+    .year {
+      flex: 4;
+    }
+  }
+  input {
+    width: 0;
+    text-align: center;
+    color: $black;
+    font-family: $font-primary, sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: none;
+    background: transparent;
+    outline: none;
+    &:hover,
+    &:focus {
+      border-color: $primary;
+    }
+
+    &::-ms-input-placeholder {
+      color: $mid-gray;
+    }
+
+    &::placeholder {
+      color: $mid-gray;
+    }
+  }
+}

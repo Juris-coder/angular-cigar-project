@@ -10,8 +10,6 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   constructor(private store: Store) {}
-  title = 'cigar-project';
-
   currentRoute: string | undefined;
 
   ngOnInit(): void {

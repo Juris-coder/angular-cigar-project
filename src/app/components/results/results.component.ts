@@ -8,6 +8,7 @@ import {
 import { Store } from '@ngrx/store';
 import { loadResultsAction } from 'src/app/state/actions/cigarStore.actions';
 import {
+  selectCigars,
   selectQuestionnaireData,
   selectResultsFeature,
 } from 'src/app/state/selectors/cigarStore.selector';
@@ -28,6 +29,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   currentPage: number | undefined;
   cigars: ICigarSearchResult[] | undefined;
   pagesAmount: number | undefined;
+  loading: boolean | undefined;
+  error: any;
   pairings: string[] = ['Scotch', 'Whisky', 'Cognac', 'Rum'];
   flavours: string[] = [
     'Fruity',
@@ -56,17 +59,25 @@ export class ResultsComponent implements OnInit, OnDestroy {
       .subscribe((data) => (this.questionnaireData = data));
 
     this.store
-      .select(selectResultsFeature)
+      .select(selectCigars)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe(({ cigars, page, count }) => {
-        this.pagesAmount = Math.floor(count / 20);
-        this.currentPage = page;
-        this.cigars = cigars;
-        if (!this.cigars || !this.cigars.length) {
+      .subscribe((cigars) => {
+        if (!cigars || !cigars.length) {
+          this.cigars = cigars;
           this.store.dispatch(
             loadResultsAction({ page: this.currentPage || 1 })
           );
         }
+      });
+
+    this.store
+      .select(selectResultsFeature)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe(({ page, count, loading, error }) => {
+        this.pagesAmount = Math.floor(count / 20);
+        this.currentPage = page;
+        this.error = error;
+        this.loading = loading;
       });
   }
 
@@ -75,7 +86,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   loadPage(page: number): void {
-    if (page === this.currentPage || page === this.pagesAmount) {
+    if (
+      !this.pagesAmount ||
+      page === this.currentPage ||
+      page > this.pagesAmount
+    ) {
       return;
     }
 

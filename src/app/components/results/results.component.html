@@ -33,7 +33,9 @@
           ></svg-icon>
           <div class="step-card center-content bg-primary">
             <div class="wrapper white center-content">
-              <h2>{{ questionnaireData?.name }}'s taste profile</h2>
+              <h2>
+                {{ questionnaireData?.name || "stranger" }}'s taste profile
+              </h2>
             </div>
             <div class="form-wrapper center-content">
               <div class="profile-choices">
@@ -88,7 +90,60 @@
       </div>
     </div>
   </div>
-  <div #cigars_container class="container cigars">
+  <div *ngIf="loading" class="container cigars">
+    <div *ngFor="let _ of [].constructor(9)" class="cigar">
+      <div class="cigar-heading">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          animation="progress"
+          class="first"
+        ></ngx-skeleton-loader>
+      </div>
+      <div class="cigar-cell">
+        <div class="cigar-part-row">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress"
+          ></ngx-skeleton-loader>
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress"
+          ></ngx-skeleton-loader>
+        </div>
+        <div class="cigar-part-row">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress"
+          ></ngx-skeleton-loader>
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress"
+          ></ngx-skeleton-loader>
+        </div>
+        <div class="cigar-part-row">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress"
+          ></ngx-skeleton-loader>
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress"
+          ></ngx-skeleton-loader>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="error">
+    <h2 class="text-primary">Error occurred during search results loading</h2>
+  </div>
+  <div *ngIf="!loading && cigars" #cigars_container class="container cigars">
     <div *ngFor="let cigar of cigars" class="cigar">
       <div class="cigar-heading text-primary">
         <h2>{{ cigar.name || "Not specified" }}</h2>
@@ -135,8 +190,8 @@
       <button
         *ngFor="let page of getPagesToShow()"
         class="page-selection-btn"
-        [class.selected]="page === currentPage"
-        [disabled]="page === currentPage"
+        [class.selected]="page === currentPage && !loading"
+        [disabled]="page === currentPage || loading"
         (click)="loadPage(page)"
       >
         {{ page.toString().padStart(2, "0") }}

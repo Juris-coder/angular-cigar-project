@@ -69,52 +69,56 @@
   position: relative;
 }
 
+.cigar-section {
+  @extend .extend-vertically;
+  gap: 6rem;
+}
+
 .cigars {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
+}
+.cigar {
+  display: flex;
+  flex-direction: column;
+  outline: 2px solid $primary;
+  min-width: 0;
 
-  .cigar {
-    display: flex;
-    flex-direction: column;
-    outline: 2px solid $primary;
-    min-width: 0;
+  .cigar-cell {
+    width: 90%;
+    margin: 5rem auto;
+  }
 
-    .cigar-cell {
+  .cigar-heading {
+    border-bottom: 2px solid $primary;
+    padding: 0.75rem 0;
+    h2 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: auto;
       width: 90%;
-      margin: 5rem auto;
+    }
+  }
+
+  .cigar-part-row {
+    display: flex;
+    border-bottom: 2px solid $mid-gray;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+
+    .subheading {
+      text-transform: uppercase;
+      font-size: 1rem;
+      font-weight: 700;
+      color: $mid-gray;
+      font-family: $font-primary;
     }
 
-    .cigar-heading {
-      border-bottom: 2px solid $primary;
-      padding: 0.75rem 0;
-      h2 {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: auto;
-        width: 90%;
-      }
-    }
-
-    .cigar-part-row {
-      display: flex;
-      border-bottom: 2px solid $mid-gray;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-
-      .subheading {
-        text-transform: uppercase;
-        font-size: 1rem;
-        font-weight: 700;
-        color: $mid-gray;
-        font-family: $font-primary;
-      }
-
-      .subtitle {
-        font-size: 0.75rem;
-      }
+    .subtitle {
+      font-size: 0.75rem;
     }
   }
 }
@@ -143,5 +147,62 @@
   border: none;
   &.selected {
     color: $primary;
+  }
+}
+
+.loading-container {
+  width: 100%;
+}
+
+ngx-skeleton-loader {
+  &::ng-deep .skeleton-loader {
+    border-radius: 0;
+    margin: 0;
+  }
+}
+
+.cigar-heading {
+  ngx-skeleton-loader {
+    display: block;
+    width: 50%;
+    margin: auto;
+    &::ng-deep .skeleton-loader {
+      background-color: #93867d;
+      height: 2rem;
+    }
+  }
+}
+.cigar-part-row {
+  &:first-child {
+    ngx-skeleton-loader {
+      &:first-child {
+        width: 30%;
+      }
+      &:last-child {
+        width: 25%;
+      }
+    }
+  }
+  &:last-child {
+    ngx-skeleton-loader {
+      &:first-child {
+        width: 15%;
+      }
+      &:last-child {
+        width: 25%;
+      }
+    }
+  }
+  ngx-skeleton-loader {
+    width: 20%;
+    &:first-child {
+      &::ng-deep .skeleton-loader {
+        background-color: #93867d;
+      }
+    }
+    &::ng-deep .skeleton-loader {
+      background-color: #b6a79b;
+      height: 1rem;
+    }
   }
 }

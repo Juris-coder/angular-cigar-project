@@ -62,8 +62,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
       .select(selectCigars)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((cigars) => {
+        this.cigars = cigars;
         if (!cigars || !cigars.length) {
-          this.cigars = cigars;
           this.store.dispatch(
             loadResultsAction({ page: this.currentPage || 1 })
           );

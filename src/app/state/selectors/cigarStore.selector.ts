@@ -13,16 +13,6 @@ export const selectCigars = createSelector(
   ({ cigars }) => cigars
 );
 
-export const selectPage = createSelector(
-  selectResultsFeature,
-  ({ page }) => page
-);
-
-export const selectCount = createSelector(
-  selectResultsFeature,
-  ({ count }) => count
-);
-
 export const selectQuestionnaireData = createSelector(
   selectQuestionnaireFeature,
   (data) => data

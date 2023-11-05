@@ -24,4 +24,6 @@ export const loadResultsSuccess = createAction(
   props<{ results: ICigarsDatabaseState }>()
 );
 
+export const clearResults = createAction('[Results] Clear previous results');
+
 export const clearState = createAction('[State] Clear state');

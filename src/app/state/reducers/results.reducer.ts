@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  clearResults,
   loadResultsAction,
   loadResultsError,
   loadResultsSuccess,
@@ -28,5 +29,6 @@ export const resultsLoadedReducer = createReducer(
     ...state,
     loading: false,
     error,
-  }))
+  })),
+  on(clearResults, () => resultsInitialState)
 );

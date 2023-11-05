@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   selectCurrentRoute,
@@ -12,18 +12,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { initialQuestionnaireState as init } from 'src/app/state/reducers/questionnaire.reducer';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss'],
 })
-export class QuestionnaireComponent implements OnInit {
+export class QuestionnaireComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private formBuilder: FormBuilder) {}
 
-  QuestionnaireStep = QuestionnaireStep;
-
+  ngDestroyed$ = new Subject<boolean>();
   currentRoute$ = this.store
     .select(selectCurrentRoute)
     .pipe(map(({ routeConfig: { path } }) => path));
@@ -31,6 +30,7 @@ export class QuestionnaireComponent implements OnInit {
     .select(selectQuestionnaireData)
     .pipe(map(({ name }) => name || 'stranger'));
 
+  QuestionnaireStep = QuestionnaireStep;
   currentRoute: string | undefined;
   questionnaireForm: FormGroup<IQuestionnaireGroup> = this.formBuilder.group({
     dateOfBirth: [init.dateOfBirth, Validators.required],
@@ -95,11 +95,19 @@ export class QuestionnaireComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectCurrentRoute)
+      .pipe(takeUntil(this.ngDestroyed$))
       .subscribe(({ routeConfig: { path } }) => (this.currentRoute = path));
 
-    this.store.select(selectQuestionnaireData).subscribe((data) => {
-      this.questionnaireForm.patchValue(data);
-    });
+    this.store
+      .select(selectQuestionnaireData)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((data) => {
+        this.questionnaireForm.patchValue(data);
+      });
+  }
+
+  ngOnDestroy() {
+    this.ngDestroyed$.next(false);
   }
 
   getStep(next: boolean): string {

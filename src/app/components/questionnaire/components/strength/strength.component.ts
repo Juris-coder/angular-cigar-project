@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import { CigarStrength } from 'src/app/app.types';
@@ -10,11 +10,12 @@ import { CigarStrength } from 'src/app/app.types';
   templateUrl: './strength.component.html',
   styleUrls: ['./strength.component.scss'],
 })
-export class StrengthComponent implements OnInit {
+export class StrengthComponent implements OnInit, OnDestroy {
   constructor(private store: Store) {}
 
-  selectedStrength = 0;
+  ngDestroyed$ = new Subject<boolean>();
 
+  selectedStrength = 0;
   strengthDictionary: CigarStrength[] = [
     '',
     'Mild',
@@ -25,9 +26,16 @@ export class StrengthComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.store.select(selectQuestionnaireData).subscribe(({ strength }) => {
-      this.selectedStrength = this.strengthDictionary.indexOf(strength);
-    });
+    this.store
+      .select(selectQuestionnaireData)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe(({ strength }) => {
+        this.selectedStrength = this.strengthDictionary.indexOf(strength);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.ngDestroyed$.next(false);
   }
 
   updateStrengthValue(value: number) {

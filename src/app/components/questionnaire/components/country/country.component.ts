@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ICardItem } from '../cards/cards.types';
 import { Store } from '@ngrx/store';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
-import { CigarCountry } from 'src/app/app.types';
+import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.scss', '../../questionnaire.component.scss'],
 })
-export class CountryComponent implements OnInit {
+export class CountryComponent implements OnInit, OnDestroy {
   constructor(private store: Store) {}
 
-  selectedCountry: string | undefined;
+  ngDestroyed$ = new Subject<boolean>();
 
+  selectedCountry: string | undefined;
   countries: ICardItem[] = [
     {
       name: 'Cuba',
@@ -54,13 +55,20 @@ export class CountryComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.store.select(selectQuestionnaireData).subscribe(({ country }) => {
-      if (country === 'United States of America') {
-        this.selectedCountry = 'USA';
-        return;
-      }
-      this.selectedCountry = country;
-    });
+    this.store
+      .select(selectQuestionnaireData)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe(({ country }) => {
+        if (country === 'United States of America') {
+          this.selectedCountry = 'USA';
+          return;
+        }
+        this.selectedCountry = country;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.ngDestroyed$.next(false);
   }
 
   emitCountrySelection(name: string): void {

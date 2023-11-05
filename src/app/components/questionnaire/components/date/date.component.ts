@@ -1,8 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { distinctUntilChanged } from 'rxjs';
+import { Subject, distinctUntilChanged, takeUntil } from 'rxjs';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import {
@@ -18,10 +24,12 @@ import { IDateOfBirthGroup } from './date.types';
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss', '../../questionnaire.component.scss'],
 })
-export class DateComponent implements OnInit {
+export class DateComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private formBuilder: FormBuilder) {}
-  faCalendarDays = faCalendarDays;
 
+  ngDestroyed$ = new Subject<boolean>();
+
+  faCalendarDays = faCalendarDays;
   dateOfBirthGroup = this.formBuilder.group(
     {
       day: [
@@ -64,22 +72,25 @@ export class DateComponent implements OnInit {
   year?: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
-    this.store.select(selectQuestionnaireData).subscribe(({ dateOfBirth }) => {
-      if (dateOfBirth) {
-        this.dateOfBirthGroup.controls.day.setValue(
-          dateOfBirth.getDate().toString().padStart(2, '0')
-        );
-        this.dateOfBirthGroup.controls.month.setValue(
-          (dateOfBirth.getMonth() + 1).toString().padStart(2, '0')
-        );
-        this.dateOfBirthGroup.controls.year.setValue(
-          dateOfBirth.getFullYear().toString()
-        );
-      }
-    });
+    this.store
+      .select(selectQuestionnaireData)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe(({ dateOfBirth }) => {
+        if (dateOfBirth) {
+          this.dateOfBirthGroup.controls.day.setValue(
+            dateOfBirth.getDate().toString().padStart(2, '0')
+          );
+          this.dateOfBirthGroup.controls.month.setValue(
+            (dateOfBirth.getMonth() + 1).toString().padStart(2, '0')
+          );
+          this.dateOfBirthGroup.controls.year.setValue(
+            dateOfBirth.getFullYear().toString()
+          );
+        }
+      });
 
     this.dateOfBirthGroup.statusChanges
-      .pipe(distinctUntilChanged())
+      .pipe(distinctUntilChanged(), takeUntil(this.ngDestroyed$))
       .subscribe((status) => {
         if (status === 'VALID') {
           const { day, month, year } = this.dateOfBirthGroup.controls;
@@ -98,6 +109,10 @@ export class DateComponent implements OnInit {
           );
         }
       });
+  }
+
+  ngOnDestroy(): void {
+    this.ngDestroyed$.next(false);
   }
 
   focusOnInput(event: Event): void {

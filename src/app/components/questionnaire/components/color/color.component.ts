@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ICardItem } from '../cards/cards.types';
 import { Store } from '@ngrx/store';
 import { CigarColor } from 'src/app/app.types';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-color',
   templateUrl: './color.component.html',
   styleUrls: ['./color.component.scss', '../../questionnaire.component.scss'],
 })
-export class ColorComponent {
+export class ColorComponent implements OnDestroy {
   constructor(private store: Store) {}
 
-  selectedColor: string | undefined;
+  ngDestroyed$ = new Subject<boolean>();
 
+  selectedColor: string | undefined;
   colors: ICardItem<CigarColor>[] = [
     {
       name: 'Double Claro',
@@ -65,7 +67,12 @@ export class ColorComponent {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
+      .pipe(takeUntil(this.ngDestroyed$))
       .subscribe(({ color }) => (this.selectedColor = color));
+  }
+
+  ngOnDestroy(): void {
+    this.ngDestroyed$.next(false);
   }
 
   emitColorSelection(name: string): void {

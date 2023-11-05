@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadResultsAction } from 'src/app/state/actions/cigarStore.actions';
 import {
@@ -6,14 +12,17 @@ import {
   selectResultsFeature,
 } from 'src/app/state/selectors/cigarStore.selector';
 import { ICigarSearchResult, IQuestionnaireState } from 'src/app/app.types';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
   constructor(private store: Store) {}
+
+  ngDestroyed$ = new Subject<boolean>();
 
   questionnaireData: IQuestionnaireState | undefined;
   currentPage: number | undefined;
@@ -43,10 +52,12 @@ export class ResultsComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
+      .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((data) => (this.questionnaireData = data));
 
     this.store
       .select(selectResultsFeature)
+      .pipe(takeUntil(this.ngDestroyed$))
       .subscribe(({ cigars, page, count }) => {
         this.pagesAmount = Math.floor(count / 20);
         this.currentPage = page;
@@ -57,6 +68,10 @@ export class ResultsComponent implements OnInit {
           );
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.ngDestroyed$.next(false);
   }
 
   loadPage(page: number): void {

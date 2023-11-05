@@ -38,6 +38,10 @@
   font-size: 0.75rem;
   width: 16rem;
   color: $mid-gray;
+
+  &.error {
+    color: $primary;
+  }
 }
 
 .input-container {
@@ -97,4 +101,9 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.outlet-wrapper {
+  @extend .extend-vertically;
+  gap: 1.125rem;
 }

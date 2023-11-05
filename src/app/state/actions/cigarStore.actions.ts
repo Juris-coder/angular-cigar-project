@@ -10,12 +10,16 @@ export const createUpdatePropertyAction = (key: keyof IQuestionnaireState) =>
   );
 
 export const loadResultsAction = createAction(
-  '[Results] Load',
+  '[Results] Load results',
   props<{ page: number }>()
 );
-export const loadResultsError = createAction('[Results] Load FAILED');
 
-export const resultsLoaded = createAction(
+export const loadResultsError = createAction(
+  '[Results] Load FAILED',
+  props<{ error: any }>()
+);
+
+export const loadResultsSuccess = createAction(
   '[Results] Load Success',
   props<{ results: ICigarsDatabaseState }>()
 );

@@ -5,7 +5,7 @@ import { ApiAssistantService } from 'src/app/services/apiAssistant.service';
 import {
   loadResultsAction,
   loadResultsError,
-  resultsLoaded,
+  loadResultsSuccess,
 } from '../actions/cigarStore.actions';
 import { Store } from '@ngrx/store';
 import { selectQuestionnaireData } from '../selectors/cigarStore.selector';
@@ -30,8 +30,8 @@ export class CigarSearchEffects {
             strength,
           })
           .pipe(
-            map((results) => resultsLoaded({ results })),
-            catchError(() => of(loadResultsError()))
+            map((results) => loadResultsSuccess({ results })),
+            catchError((error) => of(loadResultsError(error)))
           )
       )
     )

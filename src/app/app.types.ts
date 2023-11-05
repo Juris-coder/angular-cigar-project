@@ -25,8 +25,13 @@ export interface IBrandsDatabase extends ICommonSearchResult {
   brands: IBrandSearchResult[];
 }
 
-export interface ICigarsDatabaseState extends ICommonSearchResult {
+export interface ICigarsDatabaseState extends ICommonSearchResult, ILoading {
   cigars: ICigarSearchResult[];
+}
+
+export interface ILoading {
+  loading: boolean;
+  error: any;
 }
 
 export interface IStoreState {

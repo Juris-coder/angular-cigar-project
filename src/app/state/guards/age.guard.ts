@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectQuestionnaireData } from '../selectors/cigarStore.selector';
 import { Observable, map, take } from 'rxjs';
-import { isAdult } from 'src/app/utils/ageValidator';
+import { isAdult } from 'src/app/utils/validators';
 import { Router } from '@angular/router';
 
 @Injectable()

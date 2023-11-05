@@ -55,8 +55,9 @@ export class DateComponent implements OnInit {
     { validators: dateValidator() }
   );
 
-  getControl(controlName: keyof IDateOfBirthGroup): AbstractControl {
-    return this.dateOfBirthGroup.controls[controlName];
+  getRequiredState(controlName: keyof IDateOfBirthGroup): boolean {
+    const control = this.dateOfBirthGroup.controls[controlName];
+    return control.touched && control.hasError('required');
   }
 
   @ViewChild('year')

@@ -4,9 +4,15 @@ import {
   selectCurrentRoute,
   selectQuestionnaireData,
 } from 'src/app/state/selectors/cigarStore.selector';
-import { QuestionnaireStep } from './questionnaire.types';
-import { FormBuilder, Validators } from '@angular/forms';
+import { IQuestionnaireGroup, QuestionnaireStep } from './questionnaire.types';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { initialQuestionnaireState as init } from 'src/app/state/reducers/questionnaire.reducer';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-questionnaire',
@@ -16,16 +22,19 @@ import { initialQuestionnaireState as init } from 'src/app/state/reducers/questi
 export class QuestionnaireComponent implements OnInit {
   constructor(private store: Store, private formBuilder: FormBuilder) {}
 
-  title = '';
-  isLastStep = false;
-  isRestricted = false;
-  modifiedAppearance = false;
+  QuestionnaireStep = QuestionnaireStep;
 
-  private name: string | undefined;
-  private currentRoute: string | undefined;
-  private questionnaireForm = this.formBuilder.group({
+  currentRoute$ = this.store
+    .select(selectCurrentRoute)
+    .pipe(map(({ routeConfig: { path } }) => path));
+  name$: Observable<string> = this.store
+    .select(selectQuestionnaireData)
+    .pipe(map(({ name }) => name || 'stranger'));
+
+  currentRoute: string | undefined;
+  questionnaireForm: FormGroup<IQuestionnaireGroup> = this.formBuilder.group({
     dateOfBirth: [init.dateOfBirth, Validators.required],
-    name: [init.name, [Validators.maxLength(50), Validators.required]],
+    name: [init.name, [Validators.required]],
     email: [init.email, [Validators.email, Validators.required]],
     country: init.country,
     color: init.color,
@@ -68,22 +77,29 @@ export class QuestionnaireComponent implements OnInit {
     return this.questionnaireForm.valid;
   }
 
-  ngOnInit(): void {
-    this.store.select(selectQuestionnaireData).subscribe(({ name }) => {
-      this.name = name || 'stranger';
-      this.modifyTitle();
-    });
+  get isLastStep(): boolean {
+    return this.currentRoute === this.order[this.order.length - 1];
+  }
 
+  get isRestricted(): boolean {
+    return this.currentRoute === 'restricted';
+  }
+
+  get isModifiedAppearance(): boolean {
+    return (
+      this.currentRoute !== QuestionnaireStep.DateOfBirth &&
+      this.currentRoute !== QuestionnaireStep.Name
+    );
+  }
+
+  ngOnInit(): void {
     this.store
       .select(selectCurrentRoute)
-      .subscribe(({ routeConfig: { path } }) => {
-        this.currentRoute = path;
-        this.modifyTitle();
-      });
+      .subscribe(({ routeConfig: { path } }) => (this.currentRoute = path));
 
-    this.store
-      .select(selectQuestionnaireData)
-      .subscribe((data) => this.questionnaireForm.patchValue(data));
+    this.store.select(selectQuestionnaireData).subscribe((data) => {
+      this.questionnaireForm.patchValue(data);
+    });
   }
 
   getStep(next: boolean): string {
@@ -106,35 +122,7 @@ export class QuestionnaireComponent implements OnInit {
     return this.order[currentIndex - 1];
   }
 
-  private modifyTitle(): void {
-    this.isLastStep = false;
-    this.isRestricted = false;
-    switch (this.currentRoute) {
-      case QuestionnaireStep.DateOfBirth:
-        this.title = 'What is your age?';
-        this.modifiedAppearance = false;
-        break;
-      case QuestionnaireStep.Name:
-        this.title = 'Tell us your name';
-        this.modifiedAppearance = false;
-        break;
-      case QuestionnaireStep.Country:
-        this.title = `G'day, ${this.name}`;
-        this.modifiedAppearance = true;
-        break;
-      case QuestionnaireStep.Color:
-        this.title = `Great choice so far, ${this.name}`;
-        this.modifiedAppearance = true;
-        break;
-      case QuestionnaireStep.Strength:
-        this.title = `Nicely done, ${this.name}`;
-        this.modifiedAppearance = true;
-        this.isLastStep = true;
-        break;
-      case 'restricted':
-        this.title = `oops, sorry...`;
-        this.isRestricted = true;
-        break;
-    }
+  getFormControl(name: keyof IQuestionnaireGroup): FormControl {
+    return this.questionnaireForm.controls[name];
   }
 }

@@ -1,17 +1,43 @@
 <div class="container questionnaire center-content">
   <div
     class="step-card bg-white center-content"
-    [class.md]="modifiedAppearance"
+    [class.md]="isModifiedAppearance && !isRestricted"
   >
-    <div class="wrapper primary center-content">
-      <h2>{{ title }}</h2>
+    <div class="wrapper primary center-content" [ngSwitch]="currentRoute">
+      <h2 *ngSwitchCase="QuestionnaireStep.DateOfBirth">What is your age?</h2>
+      <h2 *ngSwitchCase="QuestionnaireStep.Name">Tell us your name</h2>
+      <h2 *ngSwitchCase="QuestionnaireStep.Country">
+        G'day, {{ name$ | async }}
+      </h2>
+      <h2 *ngSwitchCase="QuestionnaireStep.Color">
+        Great choice so far, {{ name$ | async }}
+      </h2>
+      <h2 *ngSwitchCase="QuestionnaireStep.Strength">
+        Nicely done, {{ name$ | async }}
+      </h2>
+      <h2 *ngSwitchCase="'restricted'">oops, sorry...</h2>
     </div>
-    <div class="form-wrapper center-content" [class.md]="modifiedAppearance">
-      <router-outlet hidden></router-outlet>
+    <div class="form-wrapper center-content" [class.md]="isModifiedAppearance">
+      <div class="outlet-wrapper">
+        <router-outlet hidden></router-outlet>
+        <ng-container *ngIf="currentRoute === QuestionnaireStep.Name">
+          <p
+            *ngIf="getFormControl('email').hasError('email')"
+            class="notice error"
+          >
+            Please enter valid email address
+          </p>
+          <p class="notice">
+            All information filled out in this form will not be proceeded in any
+            way. This contact form is used as a validation step in a personal
+            project for portfolio.
+          </p>
+        </ng-container>
+      </div>
       <div
         *ngIf="!isRestricted"
         class="btn-group"
-        [class.md]="modifiedAppearance && isLastStep"
+        [class.md]="isModifiedAppearance && isLastStep"
       >
         <a [routerLink]="getStep(false)" class="btn secondary">Go back</a>
         <input

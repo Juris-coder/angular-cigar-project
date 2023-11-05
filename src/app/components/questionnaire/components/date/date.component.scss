@@ -1,5 +1,9 @@
 @import "../../questionnaire.component.scss";
 
+:host {
+  width: 100%;
+}
+
 .input-wrapper {
   display: flex;
   justify-content: center;
@@ -41,4 +45,8 @@
       color: $mid-gray;
     }
   }
+}
+
+.notice.error {
+  color: $primary;
 }

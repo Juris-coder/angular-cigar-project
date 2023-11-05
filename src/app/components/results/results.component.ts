@@ -31,22 +31,32 @@ export class ResultsComponent implements OnInit, OnDestroy {
   pagesAmount: number | undefined;
   loading: boolean | undefined;
   error: any;
-  pairings: string[] = ['Scotch', 'Whisky', 'Cognac', 'Rum'];
-  flavours: string[] = [
-    'Fruity',
-    'Spicy',
-    'Sweet',
-    'Acid',
-    'Coffee',
-    'Creamy',
-    'Chocolate',
-    'Honey',
-    'Earthy',
-    'Herbal',
-  ];
 
-  get randomBool(): boolean {
-    return Math.random() < 0.5;
+  get randomFlavours(): { name: string; applied: boolean }[] {
+    const flavours = [
+      'Fruity',
+      'Spicy',
+      'Sweet',
+      'Acid',
+      'Coffee',
+      'Creamy',
+      'Chocolate',
+      'Honey',
+      'Earthy',
+      'Herbal',
+    ];
+    return flavours.map((name) => ({
+      name,
+      applied: Math.random() < 0.5,
+    }));
+  }
+
+  get randomPairings(): { name: string; applied: boolean }[] {
+    const pairings = ['Scotch', 'Whisky', 'Cognac', 'Rum'];
+    return pairings.map((name) => ({
+      name,
+      applied: Math.random() < 0.5,
+    }));
   }
 
   @ViewChild('cigars_container')
@@ -87,6 +97,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   loadPage(page: number): void {
     if (
+      !page ||
       !this.pagesAmount ||
       page === this.currentPage ||
       page > this.pagesAmount

@@ -62,10 +62,10 @@
                 <h3>Flavours</h3>
                 <div class="flavours">
                   <p
-                    *ngFor="let flavour of flavours"
-                    [class.selected]="randomBool"
+                    *ngFor="let flavour of randomFlavours"
+                    [class.selected]="flavour.applied"
                   >
-                    {{ flavour }}
+                    {{ flavour.name }}
                   </p>
                 </div>
               </div>
@@ -73,10 +73,10 @@
                 <h3>Recommended pairings</h3>
                 <div class="pairings">
                   <p
-                    *ngFor="let pairing of pairings"
-                    [class.selected]="randomBool"
+                    *ngFor="let pairing of randomPairings"
+                    [class.selected]="pairing.applied"
                   >
-                    {{ pairing }}
+                    {{ pairing.name }}
                   </p>
                 </div>
               </div>

@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { initialQuestionnaireState as init } from 'src/app/state/reducers/questionnaire.reducer';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
+import { clearResults } from 'src/app/state/actions/cigarStore.actions';
 
 @Component({
   selector: 'app-questionnaire',
@@ -128,6 +129,10 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
     }
 
     return this.order[currentIndex - 1];
+  }
+
+  clearResults(): void {
+    this.store.dispatch(clearResults());
   }
 
   getFormControl(name: keyof IQuestionnaireGroup): FormControl {

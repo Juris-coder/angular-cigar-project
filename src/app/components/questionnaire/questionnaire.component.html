@@ -33,6 +33,26 @@
             project for portfolio.
           </p>
         </ng-container>
+        <ng-container *ngIf="isLastStep && questionnaireForm.invalid">
+          <p
+            *ngIf="getFormControl('email').hasError('email')"
+            class="notice error"
+          >
+            Go back and enter valid email address
+          </p>
+          <p
+            *ngIf="getFormControl('email').hasError('required')"
+            class="notice error"
+          >
+            Go back to email input in fill it out
+          </p>
+          <p
+            *ngIf="getFormControl('name').hasError('required')"
+            class="notice error"
+          >
+            Go back to name input in fill it out
+          </p>
+        </ng-container>
       </div>
       <div
         *ngIf="!isRestricted"
@@ -53,10 +73,11 @@
           *ngIf="isLastStep"
           [disabled]="!isCurrentStepValid || !isFormValid"
           [routerLink]="getStep(true)"
+          (click)="clearResults()"
           type="submit"
           value="Submit results"
           class="btn"
-          [class.disabled]="!isCurrentStepValid"
+          [class.disabled]="!isCurrentStepValid || !isFormValid"
         />
       </div>
       <div *ngIf="isRestricted" class="btn-group">

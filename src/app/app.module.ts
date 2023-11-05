@@ -15,7 +15,7 @@ import { QuestionnaireComponent } from './components/questionnaire/questionnaire
 import { metaReducers, reducers } from './state/reducers';
 import { DateComponent } from './components/questionnaire/components/date/date.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountryComponent } from './components/questionnaire/components/country/country.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CardsComponent } from './components/questionnaire/components/cards/cards.component';
@@ -58,6 +58,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     FontAwesomeModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [ApiAssistantService, AgeGuard],
   bootstrap: [AppComponent],

@@ -1,12 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectUrl } from './state/selectors/cigarStore.selector';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
+import { DestroyService } from './services/destroy.service';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +10,11 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, OnDestroy {
-  constructor(private store: Store) {}
-
-  ngDestroyed$ = new Subject<boolean>();
+export class AppComponent implements OnInit {
+  constructor(
+    private store: Store,
+    private readonly destroy$: DestroyService
+  ) {}
 
   currentRoute: string | undefined;
   public isQuestionnaireRoute: boolean = false;
@@ -25,14 +22,10 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store
       .select(selectUrl)
-      .pipe(takeUntil(this.ngDestroyed$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((route) => {
         this.currentRoute = route;
         this.isQuestionnaireRoute = route?.startsWith('/questionnaire');
       });
-  }
-
-  ngOnDestroy() {
-    this.ngDestroyed$.next(false);
   }
 }

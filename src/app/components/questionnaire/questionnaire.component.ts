@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   selectCurrentRoute,
@@ -17,8 +12,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { initialQuestionnaireState as init } from 'src/app/state/reducers/questionnaire.reducer';
-import { Observable, Subject, map, takeUntil } from 'rxjs';
+import { Observable, map, takeUntil } from 'rxjs';
 import { clearResults } from 'src/app/state/actions/cigarStore.actions';
+import { DestroyService } from 'src/app/services/destroy.service';
 
 @Component({
   selector: 'app-questionnaire',
@@ -26,10 +22,13 @@ import { clearResults } from 'src/app/state/actions/cigarStore.actions';
   styleUrls: ['./questionnaire.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionnaireComponent implements OnInit, OnDestroy {
-  constructor(private store: Store, private formBuilder: FormBuilder) {}
+export class QuestionnaireComponent implements OnInit {
+  constructor(
+    private store: Store,
+    private formBuilder: FormBuilder,
+    private readonly destroy$: DestroyService
+  ) {}
 
-  ngDestroyed$ = new Subject<boolean>();
   currentRoute$ = this.store
     .select(selectCurrentRoute)
     .pipe(map(({ routeConfig: { path } }) => path));
@@ -102,19 +101,15 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store
       .select(selectCurrentRoute)
-      .pipe(takeUntil(this.ngDestroyed$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(({ routeConfig: { path } }) => (this.currentRoute = path));
 
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.ngDestroyed$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.questionnaireForm.patchValue(data);
       });
-  }
-
-  ngOnDestroy() {
-    this.ngDestroyed$.next(false);
   }
 
   getStep(next: boolean): string {

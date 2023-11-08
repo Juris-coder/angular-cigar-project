@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { colors } from './color.model';
+import { DestroyService } from 'src/app/services/destroy.service';
 
 @Component({
   selector: 'app-color',
@@ -11,10 +12,11 @@ import { colors } from './color.model';
   styleUrls: ['./color.component.scss', '../../questionnaire.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColorComponent implements OnDestroy {
-  constructor(private store: Store) {}
-
-  ngDestroyed$ = new Subject<boolean>();
+export class ColorComponent {
+  constructor(
+    private store: Store,
+    private readonly destroy$: DestroyService
+  ) {}
 
   selectedColor: string | undefined;
   colors = colors;
@@ -22,12 +24,8 @@ export class ColorComponent implements OnDestroy {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.ngDestroyed$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(({ color }) => (this.selectedColor = color));
-  }
-
-  ngOnDestroy(): void {
-    this.ngDestroyed$.next(false);
   }
 
   emitColorSelection(name: string): void {

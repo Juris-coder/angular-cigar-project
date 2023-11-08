@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -15,7 +14,8 @@ import {
   selectResultsFeature,
 } from 'src/app/state/selectors/cigarStore.selector';
 import { ICigarSearchResult, IQuestionnaireState } from 'src/app/app.types';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
+import { DestroyService } from 'src/app/services/destroy.service';
 
 @Component({
   selector: 'app-results',
@@ -23,10 +23,12 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./results.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResultsComponent implements OnInit, OnDestroy {
-  constructor(private store: Store, private cd: ChangeDetectorRef) {}
-
-  ngDestroyed$ = new Subject<boolean>();
+export class ResultsComponent implements OnInit {
+  constructor(
+    private store: Store,
+    private cd: ChangeDetectorRef,
+    private readonly destroy$: DestroyService
+  ) {}
 
   questionnaireData: IQuestionnaireState | undefined;
   currentPage: number | undefined;
@@ -68,12 +70,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.ngDestroyed$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => (this.questionnaireData = data));
 
     this.store
       .select(selectCigars)
-      .pipe(takeUntil(this.ngDestroyed$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((cigars) => {
         this.cigars = cigars;
         this.cd.markForCheck();
@@ -86,17 +88,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     this.store
       .select(selectResultsFeature)
-      .pipe(takeUntil(this.ngDestroyed$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(({ page, count, loading, error }) => {
         this.pagesAmount = Math.floor(count / 20);
         this.currentPage = page;
         this.error = error;
         this.loading = loading;
       });
-  }
-
-  ngOnDestroy() {
-    this.ngDestroyed$.next(false);
   }
 
   loadPage(page: number): void {

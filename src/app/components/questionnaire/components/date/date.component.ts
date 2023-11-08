@@ -2,14 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Subject, distinctUntilChanged, takeUntil } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import {
@@ -19,17 +18,20 @@ import {
   numberPatternValidator,
 } from 'src/app/utils/validators';
 import { IDateOfBirthGroup } from './date.types';
+import { DestroyService } from 'src/app/services/destroy.service';
 
 @Component({
   selector: 'app-date',
   templateUrl: './date.component.html',
-  styleUrls: ['./date.component.scss', '../../questionnaire.component.scss'],
+  styleUrls: ['./date.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DateComponent implements OnInit, OnDestroy {
-  constructor(private store: Store, private formBuilder: FormBuilder) {}
-
-  ngDestroyed$ = new Subject<boolean>();
+export class DateComponent implements OnInit {
+  constructor(
+    private store: Store,
+    private formBuilder: FormBuilder,
+    private readonly destroy$: DestroyService
+  ) {}
 
   faCalendarDays = faCalendarDays;
   dateOfBirthGroup = this.formBuilder.group(
@@ -76,7 +78,7 @@ export class DateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.ngDestroyed$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(({ dateOfBirth }) => {
         if (dateOfBirth) {
           this.dateOfBirthGroup.controls.day.setValue(
@@ -92,7 +94,7 @@ export class DateComponent implements OnInit, OnDestroy {
       });
 
     this.dateOfBirthGroup.statusChanges
-      .pipe(distinctUntilChanged(), takeUntil(this.ngDestroyed$))
+      .pipe(distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe((status) => {
         if (status === 'VALID') {
           const { day, month, year } = this.dateOfBirthGroup.controls;
@@ -111,10 +113,6 @@ export class DateComponent implements OnInit, OnDestroy {
           );
         }
       });
-  }
-
-  ngOnDestroy(): void {
-    this.ngDestroyed$.next(false);
   }
 
   focusOnInput(event: Event): void {

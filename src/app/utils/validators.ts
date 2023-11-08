@@ -13,23 +13,14 @@ export const isAdult = (date: Date): boolean | undefined => {
     return;
   }
 
-  const yearsDifference = currentDate.getFullYear() - inputDate.getFullYear();
+  const eighteenYearsAgo = new Date(
+    currentDate.getFullYear() - 18,
+    currentDate.getMonth(),
+    currentDate.getDate()
+  );
 
-  if (yearsDifference > 18) {
+  if (inputDate.getTime() <= eighteenYearsAgo.getTime()) {
     return true;
-  }
-
-  if (yearsDifference === 18) {
-    if (currentDate.getMonth() > inputDate.getMonth()) {
-      return true;
-    }
-
-    if (
-      currentDate.getMonth() === inputDate.getMonth() &&
-      currentDate.getDate() >= inputDate.getDate()
-    ) {
-      return true;
-    }
   }
 
   return false;

@@ -13,9 +13,10 @@ import {
   selectQuestionnaireData,
   selectResultsFeature,
 } from 'src/app/state/selectors/cigarStore.selector';
-import { ICigarSearchResult, IQuestionnaireState } from 'src/app/app.types';
 import { takeUntil } from 'rxjs';
 import { DestroyService } from 'src/app/services/destroy.service';
+import { ICigarSearchResult } from 'src/app/services/types';
+import { IQuestionnaireState } from 'src/app/state/reducers/types';
 
 @Component({
   selector: 'app-results',

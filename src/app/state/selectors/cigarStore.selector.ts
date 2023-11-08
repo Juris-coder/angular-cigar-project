@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { getRouterSelectors } from '@ngrx/router-store';
-import { ICigarsDatabaseState, IQuestionnaireState } from 'src/app/app.types';
+import { ICigarsDatabaseState } from 'src/app/services/types';
+import { IQuestionnaireState } from '../reducers/types';
 
 export const selectQuestionnaireFeature =
   createFeatureSelector<IQuestionnaireState>('questionnaire');

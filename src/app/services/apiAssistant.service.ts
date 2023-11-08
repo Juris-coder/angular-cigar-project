@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {
-  IBrandSearchResult,
-  IBrandsDatabase,
-  ICigarSearchResult,
-  ICigarsDatabaseState,
-  IRequestParameters,
-} from '../app.types';
-import { IApiAssistantService } from '../app.types';
 import { Injectable } from '@angular/core';
 import { API_ENDPOINT, options, searchKeysDictionary } from './common.utils';
+import {
+  IApiAssistantService,
+  IBrandsDatabase,
+  IBrandSearchResult,
+  IRequestParameters,
+  ICigarsDatabaseState,
+  ICigarSearchResult,
+} from './types';
 
 @Injectable()
 export class ApiAssistantService implements IApiAssistantService {

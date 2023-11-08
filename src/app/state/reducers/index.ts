@@ -6,7 +6,7 @@ import {
 import { questionnaireReducer } from './questionnaire.reducer';
 import { routerReducer } from '@ngrx/router-store';
 import { resultsLoadedReducer } from './results.reducer';
-import { IStoreState } from 'src/app/app.types';
+import { IStoreState } from './types';
 
 export const reducers: ActionReducerMap<IStoreState> = {
   questionnaire: questionnaireReducer,

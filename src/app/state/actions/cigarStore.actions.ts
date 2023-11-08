@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { ICigarsDatabaseState, IQuestionnaireState } from 'src/app/app.types';
+import { ICigarsDatabaseState } from 'src/app/services/types';
+import { IQuestionnaireState } from '../reducers/types';
 
 export const createUpdatePropertyAction = (key: keyof IQuestionnaireState) =>
   createAction(

@@ -5,7 +5,7 @@ import {
   loadResultsError,
   loadResultsSuccess,
 } from '../actions/cigarStore.actions';
-import { ICigarsDatabaseState } from 'src/app/app.types';
+import { ICigarsDatabaseState } from 'src/app/services/types';
 
 export const resultsInitialState: ICigarsDatabaseState = {
   cigars: [],

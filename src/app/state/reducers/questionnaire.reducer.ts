@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { createUpdatePropertyAction } from '../actions/cigarStore.actions';
-import { IQuestionnaireState } from 'src/app/app.types';
+import { IQuestionnaireState } from './types';
 
 export const initialQuestionnaireState: IQuestionnaireState = {
   dateOfBirth: undefined,

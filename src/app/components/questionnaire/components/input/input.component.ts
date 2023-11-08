@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IQuestionnaireState } from 'src/app/app.types';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
+import { IQuestionnaireState } from 'src/app/state/reducers/types';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 
 @Component({

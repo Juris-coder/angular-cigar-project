@@ -20,23 +20,19 @@ export class AppComponent implements OnInit, OnDestroy {
   ngDestroyed$ = new Subject<boolean>();
 
   currentRoute: string | undefined;
+  public isQuestionnaireRoute: boolean = false;
 
   ngOnInit(): void {
     this.store
       .select(selectUrl)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((route) => (this.currentRoute = route));
+      .subscribe((route) => {
+        this.currentRoute = route;
+        this.isQuestionnaireRoute = route?.startsWith('/questionnaire');
+      });
   }
 
   ngOnDestroy() {
     this.ngDestroyed$.next(false);
-  }
-
-  isRedBackground(): boolean {
-    if (!this.currentRoute) {
-      return false;
-    }
-
-    return this.currentRoute.startsWith('/questionnaire');
   }
 }

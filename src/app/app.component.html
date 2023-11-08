@@ -1,4 +1,4 @@
-<div class="page-wrapper extend-vertically" [class.red]="isRedBackground()">
+<div class="page-wrapper extend-vertically" [class.red]="isQuestionnaireRoute">
   <div class="navbar bg-white">
     <div class="container">
       <div class="nav-content">
@@ -6,7 +6,7 @@
           <a
             routerLink="/"
             class="logo"
-            [ngClass]="isRedBackground() ? 'text-secondary' : 'text-primary'"
+            [ngClass]="isQuestionnaireRoute ? 'text-secondary' : 'text-primary'"
             >Fumers Club</a
           >
           <div class="nav-menu">

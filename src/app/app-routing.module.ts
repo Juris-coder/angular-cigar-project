@@ -4,7 +4,7 @@ import { MainComponent } from './components/main/main.component';
 import { QuestionnaireComponent } from './components/questionnaire/questionnaire.component';
 import { QuestionnaireStep } from './components/questionnaire/questionnaire.types';
 import { ResultsComponent } from './components/results/results.component';
-import { AgeGuard } from './state/guards/age.guard';
+import { AgeGuard } from './guards/age.guard';
 import { ColorComponent } from './components/questionnaire/components/color/color.component';
 import { CountryComponent } from './components/questionnaire/components/country/country.component';
 import { DateComponent } from './components/questionnaire/components/date/date.component';

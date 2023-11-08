@@ -109,12 +109,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (!page || page < 2) {
+    if (page < 2) {
       page = 1;
-    }
-
-    if (this.pagesAmount && page >= this.pagesAmount) {
-      page = this.pagesAmount;
     }
 
     this.store.dispatch(loadResultsAction({ page }));

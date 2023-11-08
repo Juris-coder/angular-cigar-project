@@ -9,10 +9,6 @@ export const isAdult = (date: Date): boolean | undefined => {
   const inputDate = new Date(date);
   const currentDate = new Date();
 
-  if (isNaN(inputDate.getTime())) {
-    return;
-  }
-
   const eighteenYearsAgo = new Date(
     currentDate.getFullYear() - 18,
     currentDate.getMonth(),

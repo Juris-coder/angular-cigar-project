@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-restricted',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
     './restricted.component.scss',
     '../../questionnaire.component.scss',
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RestrictedComponent {}

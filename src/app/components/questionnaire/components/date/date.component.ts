@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
@@ -23,6 +24,7 @@ import { IDateOfBirthGroup } from './date.types';
   selector: 'app-date',
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss', '../../questionnaire.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private formBuilder: FormBuilder) {}

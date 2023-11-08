@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnDestroy,
@@ -19,9 +21,10 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultsComponent implements OnInit, OnDestroy {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private cd: ChangeDetectorRef) {}
 
   ngDestroyed$ = new Subject<boolean>();
 
@@ -73,6 +76,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((cigars) => {
         this.cigars = cigars;
+        this.cd.markForCheck();
         if (!cigars || !cigars.length) {
           this.store.dispatch(
             loadResultsAction({ page: this.currentPage || 1 })

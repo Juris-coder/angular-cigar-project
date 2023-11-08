@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ICardItem } from '../cards/cards.types';
 import { Store } from '@ngrx/store';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
@@ -8,6 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-country',
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.scss', '../../questionnaire.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryComponent implements OnInit, OnDestroy {
   constructor(private store: Store) {}

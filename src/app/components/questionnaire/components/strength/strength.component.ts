@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
@@ -9,6 +14,7 @@ import { CigarStrength } from 'src/app/app.types';
   selector: 'app-strength',
   templateUrl: './strength.component.html',
   styleUrls: ['./strength.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StrengthComponent implements OnInit, OnDestroy {
   constructor(private store: Store) {}

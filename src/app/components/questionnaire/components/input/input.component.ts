@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IQuestionnaireState } from 'src/app/app.types';
@@ -9,6 +9,7 @@ import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.sele
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss', '../../questionnaire.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent {
   constructor(private store: Store) {}

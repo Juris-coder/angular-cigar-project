@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   selectCurrentRoute,
@@ -19,6 +24,7 @@ import { clearResults } from 'src/app/state/actions/cigarStore.actions';
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionnaireComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private formBuilder: FormBuilder) {}

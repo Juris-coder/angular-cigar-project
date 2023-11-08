@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ICardItem } from '../cards/cards.types';
 import { Store } from '@ngrx/store';
 import { CigarColor } from 'src/app/app.types';
@@ -10,6 +10,7 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-color',
   templateUrl: './color.component.html',
   styleUrls: ['./color.component.scss', '../../questionnaire.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorComponent implements OnDestroy {
   constructor(private store: Store) {}

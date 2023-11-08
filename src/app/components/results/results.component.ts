@@ -96,11 +96,7 @@ export class ResultsComponent implements OnInit {
       return;
     }
 
-    if (page < 2) {
-      page = 1;
-    }
-
-    this.store.dispatch(loadResultsAction({ page }));
+    this.store.dispatch(loadResultsAction({ page: page < 2 ? 1 : page }));
   }
 
   scrollTo() {

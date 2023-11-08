@@ -17,6 +17,7 @@ import { takeUntil } from 'rxjs';
 import { DestroyService } from 'src/app/services/destroy.service';
 import { ICigarSearchResult } from 'src/app/services/types';
 import { IQuestionnaireState } from 'src/app/state/reducers/types';
+import { flavours, pairings } from './constants';
 
 @Component({
   selector: 'app-results',
@@ -39,18 +40,6 @@ export class ResultsComponent implements OnInit {
   error: any;
 
   get randomFlavours(): { name: string; applied: boolean }[] {
-    const flavours = [
-      'Fruity',
-      'Spicy',
-      'Sweet',
-      'Acid',
-      'Coffee',
-      'Creamy',
-      'Chocolate',
-      'Honey',
-      'Earthy',
-      'Herbal',
-    ];
     return flavours.map((name) => ({
       name,
       applied: Math.random() < 0.5,
@@ -58,7 +47,6 @@ export class ResultsComponent implements OnInit {
   }
 
   get randomPairings(): { name: string; applied: boolean }[] {
-    const pairings = ['Scotch', 'Whisky', 'Cognac', 'Rum'];
     return pairings.map((name) => ({
       name,
       applied: Math.random() < 0.5,

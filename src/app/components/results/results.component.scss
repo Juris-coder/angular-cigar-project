@@ -1,4 +1,4 @@
-@import "../../../styles.scss";
+@import "styles";
 
 .section {
   display: flex;
@@ -67,11 +67,6 @@
   fill: $primary;
   z-index: 1;
   position: relative;
-}
-
-.cigar-section {
-  @extend .extend-vertically;
-  gap: 6rem;
 }
 
 .cigars {

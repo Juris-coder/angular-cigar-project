@@ -35,6 +35,9 @@
               "src/styles.scss",
               "node_modules/normalize.css/normalize.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/assets/styles", "src"]
+            },
             "scripts": []
           },
           "configurations": {

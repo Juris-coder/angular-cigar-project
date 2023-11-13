@@ -1,3 +1,5 @@
+@import "variables";
+
 @font-face {
   font-family: "Antonio";
   src: url("assets/fonts/Antonio.ttf");
@@ -7,17 +9,6 @@
   font-family: "RobotoSlab";
   src: url("assets/fonts/RobotoSlab.ttf");
 }
-
-$font-primary: "Antonio", sans-serif;
-$font-secondary: "RobotoSlab", sans-serif;
-$text-spacing: -0.01125rem;
-
-// Colors
-$white: #e0ddd4;
-$primary: #bd4032;
-$light-gray: #b6a79b;
-$black: #1c1c1f;
-$mid-gray: #70665e;
 
 * {
   font-family: $font-secondary;

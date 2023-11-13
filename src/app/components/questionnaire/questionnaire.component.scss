@@ -1,7 +1,8 @@
-@import "styles";
+@use "styles";
+@import "variables";
 
 :host {
-  @extend .extend-vertically;
+  @include styles.extend-vertically;
 }
 
 .questionnaire {
@@ -104,6 +105,6 @@
 }
 
 .outlet-wrapper {
-  @extend .extend-vertically;
+  @include styles.extend-vertically;
   gap: 1.125rem;
 }

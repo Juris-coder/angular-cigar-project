@@ -1,11 +1,13 @@
-@import "styles";
+@use "styles";
+@import "variables";
 // Navbar
 
 :host {
-  @extend .extend-vertically;
+  @include styles.extend-vertically;
 }
 
 .page-wrapper {
+  @include styles.extend-vertically;
   height: 100%;
   background-color: $white;
   padding-top: 2rem;

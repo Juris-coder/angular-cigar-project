@@ -152,6 +152,8 @@ label {
 }
 //
 
+// Questionnaire
+
 .questionnaire,
 .profile {
   .shape-bevel {
@@ -178,6 +180,75 @@ label {
       bottom: -1.5rem;
       right: -1.5rem;
     }
+  }
+}
+
+.item-selection-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.notice {
+  font-size: 0.75rem;
+  width: 16rem;
+  color: $mid-gray;
+
+  &.error {
+    color: $primary;
+  }
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.input-group {
+  text-align: left;
+  flex-direction: row;
+  align-items: stretch;
+  display: flex;
+  position: relative;
+}
+
+.input-label {
+  @extend .center-content;
+  min-width: 2.5rem;
+  background-color: $primary;
+  color: $white;
+  text-align: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  cursor: pointer;
+}
+
+.input {
+  cursor: pointer;
+  height: 100%;
+  flex: 1;
+  border: 2px solid $primary;
+  color: $black;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+  margin-bottom: 0;
+  padding: 0.75rem 0.5rem;
+  font-family: $font-primary, sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  outline: none;
+  &:hover,
+  &:focus {
+    border-color: $primary;
+  }
+
+  &::-ms-input-placeholder {
+    color: $mid-gray;
+  }
+
+  &::placeholder {
+    color: $mid-gray;
   }
 }
 

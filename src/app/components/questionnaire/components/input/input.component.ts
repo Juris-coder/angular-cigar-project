@@ -8,7 +8,7 @@ import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.sele
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss', '../../questionnaire.component.scss'],
+  styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent {

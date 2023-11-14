@@ -9,7 +9,7 @@ import { DestroyService } from 'src/app/services/destroy.service';
 @Component({
   selector: 'app-color',
   templateUrl: './color.component.html',
-  styleUrls: ['./color.component.scss', '../../questionnaire.component.scss'],
+  styleUrls: ['./color.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorComponent {

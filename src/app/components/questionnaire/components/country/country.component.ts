@@ -8,7 +8,7 @@ import { DestroyService } from 'src/app/services/destroy.service';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
-  styleUrls: ['./country.component.scss', '../../questionnaire.component.scss'],
+  styleUrls: ['./country.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryComponent implements OnInit {

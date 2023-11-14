@@ -9,10 +9,7 @@ import {
 @Component({
   selector: 'app-checkbox',
   templateUrl: './checkbox.component.html',
-  styleUrls: [
-    './checkbox.component.scss',
-    '../../questionnaire.component.scss',
-  ],
+  styleUrls: ['./checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxComponent {

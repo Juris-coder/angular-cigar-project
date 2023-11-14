@@ -10,7 +10,7 @@ import { ICardItem } from './cards.types';
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.scss', '../../questionnaire.component.scss'],
+  styleUrls: ['./cards.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardsComponent {

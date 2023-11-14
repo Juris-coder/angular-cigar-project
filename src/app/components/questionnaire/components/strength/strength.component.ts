@@ -9,10 +9,7 @@ import { DestroyService } from 'src/app/services/destroy.service';
 @Component({
   selector: 'app-strength',
   templateUrl: './strength.component.html',
-  styleUrls: [
-    './strength.component.scss',
-    '../../questionnaire.component.scss',
-  ],
+  styleUrls: ['./strength.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StrengthComponent implements OnInit {

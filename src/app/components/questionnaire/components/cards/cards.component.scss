@@ -1,9 +1,5 @@
 @import "variables";
 
-:host {
-  width: 100%;
-}
-
 .buttons-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

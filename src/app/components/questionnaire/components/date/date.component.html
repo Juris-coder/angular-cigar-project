@@ -1,8 +1,8 @@
 <div class="input-container">
   <div class="input-group" (click)="focusOnInput($event)">
     <label for="date" class="input-label"
-      ><fa-icon class="fa-2x" [icon]="faCalendarDays"></fa-icon
-    ></label>
+      ><fa-icon class="fa-2x" [icon]="faCalendarDays" />
+    </label>
     <div class="input-wrapper input">
       <div [formGroup]="dateOfBirthGroup">
         <input class="day" type="text" formControlName="day" placeholder="DD" />
@@ -25,18 +25,18 @@
     </div>
   </div>
 
-  <p *ngIf="dateOfBirthGroup.hasError('invalidDate')" class="notice error">
-    Provided date is not valid
-  </p>
-  <p *ngIf="getRequiredState('day')" class="notice error">
-    Please enter day in DD format
-  </p>
-  <p *ngIf="getRequiredState('month')" class="notice error">
-    Please enter month in MM format
-  </p>
-  <p *ngIf="getRequiredState('year')" class="notice error">
-    Please enter year in YYYY format
-  </p>
+  @if (dateOfBirthGroup.hasError("invalidDate")) {
+    <p class="notice error">Provided date is not valid</p>
+  }
+  @if (getRequiredState("day")) {
+    <p class="notice error">Please enter day in DD format</p>
+  }
+  @if (getRequiredState("month")) {
+    <p class="notice error">Please enter month in MM format</p>
+  }
+  @if (getRequiredState("year")) {
+    <p class="notice error">Please enter year in YYYY format</p>
+  }
   <p class="notice">
     Note: you must be over 18 years old in order to continue with out website
   </p>

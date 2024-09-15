@@ -1,26 +1,28 @@
 <div class="input-container">
-  <div class="input-group">
-    <label for="name" class="input-label">Name</label
-    ><input
-      type="text"
-      class="input"
-      maxlength="256"
-      name="name"
-      placeholder="Winston Churchill"
-      [value]="(questionnaireData$ | async)?.name"
-      (change)="updateNameValue($event)"
-    />
-  </div>
-  <div class="input-group">
-    <label for="email" class="input-label">Email</label
-    ><input
-      type="email"
-      class="input"
-      maxlength="256"
-      name="email"
-      placeholder="hey@churchill.com"
-      [value]="(questionnaireData$ | async)?.email"
-      (change)="updateEmailValue($event)"
-    />
-  </div>
+  @if (questionnaireData$ | async; as data) {
+    <div class="input-group">
+      <label for="name" class="input-label">Name</label
+      ><input
+        type="text"
+        class="input"
+        maxlength="256"
+        name="name"
+        placeholder="Winston Churchill"
+        [value]="data.name"
+        (change)="updateNameValue($event)"
+      />
+    </div>
+    <div class="input-group">
+      <label for="email" class="input-label">Email</label
+      ><input
+        type="email"
+        class="input"
+        maxlength="256"
+        name="email"
+        placeholder="hey@churchill.com"
+        [value]="data.email"
+        (change)="updateEmailValue($event)"
+      />
+    </div>
+  }
 </div>

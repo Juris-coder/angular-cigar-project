@@ -5,12 +5,7 @@ import {
   selectQuestionnaireData,
 } from 'src/app/state/selectors/cigarStore.selector';
 import { IQuestionnaireGroup, QuestionnaireStep } from './questionnaire.types';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { initialQuestionnaireState as init } from 'src/app/state/reducers/questionnaire.reducer';
 import { Observable, map, takeUntil } from 'rxjs';
 import { clearResults } from 'src/app/state/actions/cigarStore.actions';
@@ -26,7 +21,7 @@ export class QuestionnaireComponent implements OnInit {
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
-    private readonly destroy$: DestroyService
+    private readonly destroy$: DestroyService,
   ) {}
 
   currentRoute$ = this.store
@@ -114,7 +109,7 @@ export class QuestionnaireComponent implements OnInit {
 
   getStep(next: boolean): string {
     const currentIndex = this.order.findIndex(
-      (path) => this.currentRoute === path
+      (path) => this.currentRoute === path,
     );
     const isStepLast = this.order.length === currentIndex + 1;
     if (next) {
@@ -134,9 +129,5 @@ export class QuestionnaireComponent implements OnInit {
 
   clearResults(): void {
     this.store.dispatch(clearResults());
-  }
-
-  getFormControl(name: keyof IQuestionnaireGroup): FormControl {
-    return this.questionnaireForm.controls[name];
   }
 }

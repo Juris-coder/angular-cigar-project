@@ -3,98 +3,96 @@
     class="step-card bg-white center-content"
     [class.md]="isModifiedAppearance && !isRestricted"
   >
-    <div class="wrapper primary center-content" [ngSwitch]="currentRoute">
-      <h2 *ngSwitchCase="QuestionnaireStep.DateOfBirth">What is your age?</h2>
-      <h2 *ngSwitchCase="QuestionnaireStep.Name">Tell us your name</h2>
-      <h2 *ngSwitchCase="QuestionnaireStep.Country">
-        G'day, {{ name$ | async }}
-      </h2>
-      <h2 *ngSwitchCase="QuestionnaireStep.Color">
-        Great choice so far, {{ name$ | async }}
-      </h2>
-      <h2 *ngSwitchCase="QuestionnaireStep.Strength">
-        Nicely done, {{ name$ | async }}
-      </h2>
-      <h2 *ngSwitchCase="'restricted'">oops, sorry...</h2>
+    <div class="wrapper primary center-content">
+      @switch (currentRoute) {
+        @case (QuestionnaireStep.DateOfBirth) {
+          <h2>What is your age?</h2>
+        }
+        @case (QuestionnaireStep.Name) {
+          <h2>Tell us your name</h2>
+        }
+        @case (QuestionnaireStep.Country) {
+          <h2>G'day, {{ name$ | async }}</h2>
+        }
+        @case (QuestionnaireStep.Color) {
+          <h2>Great choice so far, {{ name$ | async }}</h2>
+        }
+        @case (QuestionnaireStep.Strength) {
+          <h2>Nicely done, {{ name$ | async }}</h2>
+        }
+        @case ("restricted") {
+          <h2>oops, sorry...</h2>
+        }
+      }
     </div>
     <div class="form-wrapper center-content" [class.md]="isModifiedAppearance">
-      <div class="outlet-wrapper">
-        <router-outlet hidden></router-outlet>
-        <ng-container *ngIf="currentRoute === QuestionnaireStep.Name">
-          <p
-            *ngIf="getFormControl('email').hasError('email')"
-            class="notice error"
+      @if (questionnaireForm; as form) {
+        <div class="outlet-wrapper">
+          <router-outlet hidden />
+          @if (currentRoute === QuestionnaireStep.Name) {
+            @if (form.controls.email.hasError("email")) {
+              <p class="notice error">Please enter valid email address</p>
+            }
+            <p class="notice">
+              All information filled out in this form will not be proceeded in
+              any way. This contact form is used as a validation step in a
+              personal project for portfolio.
+            </p>
+          }
+          @if (isLastStep && form.invalid) {
+            @if (form.controls.email.hasError("email")) {
+              <p class="notice error">Go back and enter valid email address</p>
+            }
+            @if (form.controls.email.hasError("required")) {
+              <p class="notice error">Go back to email input in fill it out</p>
+            }
+            @if (form.controls.name.hasError("required")) {
+              <p class="notice error">Go back to name input in fill it out</p>
+            }
+          }
+        </div>
+      }
+      @if (!isRestricted) {
+        <div class="btn-group" [class.md]="isModifiedAppearance && isLastStep">
+          <a [routerLink]="getStep(false)" class="btn secondary">Go back</a>
+          @if (!isLastStep) {
+            <input
+              [disabled]="!isCurrentStepValid"
+              [routerLink]="getStep(true)"
+              type="submit"
+              value="Next Step"
+              class="btn"
+              [class.disabled]="!isCurrentStepValid"
+            />
+          } @else {
+            <input
+              [disabled]="!isCurrentStepValid || !isFormValid"
+              [routerLink]="getStep(true)"
+              (click)="clearResults()"
+              type="submit"
+              value="Submit results"
+              class="btn"
+              [class.disabled]="!isCurrentStepValid || !isFormValid"
+            />
+          }
+        </div>
+      } @else {
+        <div class="btn-group">
+          <img
+            class="left-hand"
+            src="assets/images/left-hand.svg"
+            alt="Symbolic left hand"
+          />
+          <a routerLink="/" class="btn primary" [class.md]="isRestricted"
+            >Go back</a
           >
-            Please enter valid email address
-          </p>
-          <p class="notice">
-            All information filled out in this form will not be proceeded in any
-            way. This contact form is used as a validation step in a personal
-            project for portfolio.
-          </p>
-        </ng-container>
-        <ng-container *ngIf="isLastStep && questionnaireForm.invalid">
-          <p
-            *ngIf="getFormControl('email').hasError('email')"
-            class="notice error"
-          >
-            Go back and enter valid email address
-          </p>
-          <p
-            *ngIf="getFormControl('email').hasError('required')"
-            class="notice error"
-          >
-            Go back to email input in fill it out
-          </p>
-          <p
-            *ngIf="getFormControl('name').hasError('required')"
-            class="notice error"
-          >
-            Go back to name input in fill it out
-          </p>
-        </ng-container>
-      </div>
-      <div
-        *ngIf="!isRestricted"
-        class="btn-group"
-        [class.md]="isModifiedAppearance && isLastStep"
-      >
-        <a [routerLink]="getStep(false)" class="btn secondary">Go back</a>
-        <input
-          *ngIf="!isLastStep"
-          [disabled]="!isCurrentStepValid"
-          [routerLink]="getStep(true)"
-          type="submit"
-          value="Next Step"
-          class="btn"
-          [class.disabled]="!isCurrentStepValid"
-        />
-        <input
-          *ngIf="isLastStep"
-          [disabled]="!isCurrentStepValid || !isFormValid"
-          [routerLink]="getStep(true)"
-          (click)="clearResults()"
-          type="submit"
-          value="Submit results"
-          class="btn"
-          [class.disabled]="!isCurrentStepValid || !isFormValid"
-        />
-      </div>
-      <div *ngIf="isRestricted" class="btn-group">
-        <img
-          class="left-hand"
-          src="assets/images/left-hand.svg"
-          alt="Symbolic left hand"
-        />
-        <a routerLink="/" class="btn primary" [class.md]="isRestricted"
-          >Go back</a
-        >
-        <img
-          class="right-hand"
-          src="assets/images/right-hand.svg"
-          alt="Symbolic right hand"
-        />
-      </div>
+          <img
+            class="right-hand"
+            src="assets/images/right-hand.svg"
+            alt="Symbolic right hand"
+          />
+        </div>
+      }
     </div>
     <div class="shape-bevel top-left bg-primary"></div>
     <div class="shape-bevel top-right bg-primary"></div>

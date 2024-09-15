@@ -24,7 +24,7 @@ import { StrengthComponent } from './components/questionnaire/components/strengt
 import { CheckboxComponent } from './components/questionnaire/components/checkbox/checkbox.component';
 import { ResultsComponent } from './components/results/results.component';
 import { CigarSearchEffects } from './state/effects/cigarSearch.effects';
-import { AgeGuard } from './state/guards/age.guard';
+import { AgeGuard } from './guards/age.guard';
 import { RestrictedComponent } from './components/questionnaire/components/restricted/restricted.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
@@ -55,7 +55,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      connectInZone: true,
+    }),
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,

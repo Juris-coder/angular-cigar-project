@@ -96,42 +96,17 @@
             />
           </div>
           <div class="cigar-cell">
-            <div class="cigar-part-row">
-              <ngx-skeleton-loader
-                count="1"
-                appearance="line"
-                animation="progress"
-              />
-              <ngx-skeleton-loader
-                count="1"
-                appearance="line"
-                animation="progress"
-              />
-            </div>
-            <div class="cigar-part-row">
-              <ngx-skeleton-loader
-                count="1"
-                appearance="line"
-                animation="progress"
-              />
-              <ngx-skeleton-loader
-                count="1"
-                appearance="line"
-                animation="progress"
-              />
-            </div>
-            <div class="cigar-part-row">
-              <ngx-skeleton-loader
-                count="1"
-                appearance="line"
-                animation="progress"
-              />
-              <ngx-skeleton-loader
-                count="1"
-                appearance="line"
-                animation="progress"
-              />
-            </div>
+            @for (cell of [].constructor(3); track $index) {
+              <div class="cigar-part-row">
+                @for (loader of [].constructor(2); track $index) {
+                  <ngx-skeleton-loader
+                    count="1"
+                    appearance="line"
+                    animation="progress"
+                  />
+                }
+              </div>
+            }
           </div>
         </div>
       }

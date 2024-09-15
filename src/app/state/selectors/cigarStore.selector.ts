@@ -11,12 +11,12 @@ export const selectResultsFeature =
 
 export const selectCigars = createSelector(
   selectResultsFeature,
-  ({ cigars }) => cigars
+  (cigars) => cigars,
 );
 
 export const selectQuestionnaireData = createSelector(
   selectQuestionnaireFeature,
-  (data) => data
+  (data) => data,
 );
 
 export const {

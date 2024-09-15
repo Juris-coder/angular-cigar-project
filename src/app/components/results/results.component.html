@@ -1,206 +1,216 @@
-<router-outlet></router-outlet>
+<router-outlet />
 <section class="section">
-  <div class="v-pad">
-    <div class="container">
-      <div class="layout">
-        <div class="hero-content">
-          <h1 class="text-primary">
-            Here are<br />your results,<br />{{
-              questionnaireData?.name || "stranger"
-            }}
-          </h1>
-          <div class="subtitle-content">
-            <div class="subtitle-wrapper">
+  @if (questionnaireData$ | async; as data) {
+    <div class="v-pad">
+      <div class="container">
+        <div class="layout">
+          <div class="hero-content">
+            <h1 class="text-primary">
+              Here are<br />your results,<br />{{ data.name || "stranger" }}
+            </h1>
+            <div class="subtitle-content">
+              <div class="subtitle-wrapper">
+                <p class="subtitle">
+                  Thank you for investing your time into completing our cigars
+                  tasting quiz!
+                </p>
+              </div>
+              <div class="btn-group">
+                <a
+                  class="btn secondary"
+                  routerLink="/questionnaire/strengthSelection"
+                  >Go back</a
+                >
+                <a (click)="scrollTo()" class="btn">Show my results</a>
+              </div>
+            </div>
+          </div>
+          <div class="container profile">
+            <svg-icon src="assets/images/left-hand.svg" svgClass="hand" />
+            <div class="step-card center-content bg-primary">
+              <div class="wrapper white center-content">
+                <h2>{{ data.name || "stranger" }}'s taste profile</h2>
+              </div>
+              <div class="form-wrapper center-content">
+                <div class="profile-choices">
+                  <div>
+                    <h3>Region</h3>
+                    <p class="subtitle white">
+                      {{ data.country || ALL_RESULTS }}
+                    </p>
+                  </div>
+                  <div>
+                    <h3>Cigar's color</h3>
+                    <p class="subtitle white">
+                      {{ data.color || ALL_RESULTS }}
+                    </p>
+                  </div>
+                  <div>
+                    <h3>Strength</h3>
+                    <p class="subtitle white">
+                      {{ data.strength || ALL_RESULTS }}
+                    </p>
+                  </div>
+                </div>
+                <div class="flavours-container">
+                  <h3>Flavours</h3>
+                  <div class="flavours">
+                    @for (flavour of randomFlavours; track $index) {
+                      <p [class.selected]="flavour.applied">
+                        {{ flavour.name }}
+                      </p>
+                    }
+                  </div>
+                </div>
+                <div class="pairings -container">
+                  <h3>Recommended pairings</h3>
+                  <div class="pairings">
+                    @for (pairing of randomPairings; track $index) {
+                      <p [class.selected]="pairing.applied">
+                        {{ pairing.name }}
+                      </p>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div class="shape-bevel top-left bg-white"></div>
+              <div class="shape-bevel top-right bg-white"></div>
+              <div class="shape-bevel bot-left bg-white"></div>
+              <div class="shape-bevel bot-right bg-white"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  @if (loading) {
+    <div class="container cigars">
+      @for (cigar of [].constructor(9); track $index) {
+        <div class="cigar">
+          <div class="cigar-heading">
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              animation="progress"
+              class="first"
+            />
+          </div>
+          <div class="cigar-cell">
+            <div class="cigar-part-row">
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                animation="progress"
+              />
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                animation="progress"
+              />
+            </div>
+            <div class="cigar-part-row">
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                animation="progress"
+              />
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                animation="progress"
+              />
+            </div>
+            <div class="cigar-part-row">
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                animation="progress"
+              />
+              <ngx-skeleton-loader
+                count="1"
+                appearance="line"
+                animation="progress"
+              />
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else if (error) {
+    <div class="v-pad">
+      <h2 class="text-primary">Error occurred during search results loading</h2>
+    </div>
+  } @else if (!loading && cigars) {
+    <div #cigars_container class="container cigars">
+      @for (cigar of cigars; track $index) {
+        <div class="cigar">
+          <div class="cigar-heading text-primary">
+            <h2>{{ cigar.name || NOT_SPECIFIED }}</h2>
+          </div>
+          <div class="cigar-cell">
+            <div class="cigar-part-row">
+              <p class="subheading">Region</p>
+              <p class="subtitle">{{ cigar.country || NOT_SPECIFIED }}</p>
+            </div>
+            <div class="cigar-part-row">
+              <p class="subheading">Filler</p>
+              <p class="subtitle">{{ cigar.filler || NOT_SPECIFIED }}</p>
+            </div>
+            <div class="cigar-part-row">
+              <p class="subheading">Wrapper</p>
+              <p class="subtitle">{{ cigar.wrapper || NOT_SPECIFIED }}</p>
+            </div>
+            <div class="cigar-part-row">
+              <p class="subheading">Color</p>
+              <p class="subtitle">{{ cigar.color || NOT_SPECIFIED }}</p>
+            </div>
+            <div class="cigar-part-row">
+              <p class="subheading">Strength</p>
               <p class="subtitle">
-                Thank you for investing your time into completing our cigars
-                tasting quiz!
+                {{ cigar.strength || NOT_SPECIFIED }}
               </p>
             </div>
-            <div class="btn-group">
-              <a
-                class="btn secondary"
-                routerLink="/questionnaire/strengthSelection"
-                >Go back</a
-              >
-              <a (click)="scrollTo()" class="btn">Show my results</a>
+            <div class="cigar-part-row">
+              <p class="subheading">Length</p>
+              <p class="subtitle">{{ cigar.length || NOT_SPECIFIED }} in.</p>
+            </div>
+            <div class="cigar-part-row">
+              <p class="subheading">Ring</p>
+              <p class="subtitle">
+                {{ cigar.ringGauge || NOT_SPECIFIED }}
+              </p>
             </div>
           </div>
         </div>
-        <div class="container profile">
-          <svg-icon
-            src="assets/images/left-hand.svg"
-            [svgClass]="'hand'"
-          ></svg-icon>
-          <div class="step-card center-content bg-primary">
-            <div class="wrapper white center-content">
-              <h2>
-                {{ questionnaireData?.name || "stranger" }}'s taste profile
-              </h2>
-            </div>
-            <div class="form-wrapper center-content">
-              <div class="profile-choices">
-                <div>
-                  <h3>Region</h3>
-                  <p class="subtitle white">
-                    {{ questionnaireData?.country || "All" }}
-                  </p>
-                </div>
-                <div>
-                  <h3>Cigar's color</h3>
-                  <p class="subtitle white">
-                    {{ questionnaireData?.color || "All" }}
-                  </p>
-                </div>
-                <div>
-                  <h3>Strength</h3>
-                  <p class="subtitle white">
-                    {{ questionnaireData?.strength || "All" }}
-                  </p>
-                </div>
-              </div>
-              <div class="flavours-container">
-                <h3>Flavours</h3>
-                <div class="flavours">
-                  <p
-                    *ngFor="let flavour of randomFlavours"
-                    [class.selected]="flavour.applied"
-                  >
-                    {{ flavour.name }}
-                  </p>
-                </div>
-              </div>
-              <div class="pairings -container">
-                <h3>Recommended pairings</h3>
-                <div class="pairings">
-                  <p
-                    *ngFor="let pairing of randomPairings"
-                    [class.selected]="pairing.applied"
-                  >
-                    {{ pairing.name }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="shape-bevel top-left bg-white"></div>
-            <div class="shape-bevel top-right bg-white"></div>
-            <div class="shape-bevel bot-left bg-white"></div>
-            <div class="shape-bevel bot-right bg-white"></div>
-          </div>
-        </div>
-      </div>
+      } @empty {
+        <h2 class="text-primary">No results found!</h2>
+      }
     </div>
-  </div>
-  <div *ngIf="loading" class="container cigars">
-    <div *ngFor="let _ of [].constructor(9)" class="cigar">
-      <div class="cigar-heading">
-        <ngx-skeleton-loader
-          count="1"
-          appearance="line"
-          animation="progress"
-          class="first"
-        ></ngx-skeleton-loader>
+  }
+  @if (pagesAmount) {
+    <div class="pages-selection-container">
+      <svg-icon
+        src="assets/images/right-hand.svg"
+        [svgClass]="'hand'"
+        (click)="loadPage(currentPage - 1)"
+      />
+      <div class="pages-selection">
+        @for (page of getPagesToShow(); track $index) {
+          <button
+            class="page-selection-btn"
+            [class.selected]="page === currentPage && !loading"
+            [disabled]="page === currentPage || loading"
+            (click)="loadPage(page)"
+          >
+            {{ page.toString().padStart(2, "0") }}
+          </button>
+        }
       </div>
-      <div class="cigar-cell">
-        <div class="cigar-part-row">
-          <ngx-skeleton-loader
-            count="1"
-            appearance="line"
-            animation="progress"
-          ></ngx-skeleton-loader>
-          <ngx-skeleton-loader
-            count="1"
-            appearance="line"
-            animation="progress"
-          ></ngx-skeleton-loader>
-        </div>
-        <div class="cigar-part-row">
-          <ngx-skeleton-loader
-            count="1"
-            appearance="line"
-            animation="progress"
-          ></ngx-skeleton-loader>
-          <ngx-skeleton-loader
-            count="1"
-            appearance="line"
-            animation="progress"
-          ></ngx-skeleton-loader>
-        </div>
-        <div class="cigar-part-row">
-          <ngx-skeleton-loader
-            count="1"
-            appearance="line"
-            animation="progress"
-          ></ngx-skeleton-loader>
-          <ngx-skeleton-loader
-            count="1"
-            appearance="line"
-            animation="progress"
-          ></ngx-skeleton-loader>
-        </div>
-      </div>
+      <svg-icon
+        src="assets/images/left-hand.svg"
+        [svgClass]="'hand'"
+        (click)="loadPage(currentPage + 1)"
+      />
     </div>
-  </div>
-  <div *ngIf="error">
-    <h2 class="text-primary">Error occurred during search results loading</h2>
-  </div>
-  <div *ngIf="!loading && cigars" #cigars_container class="container cigars">
-    <div *ngFor="let cigar of cigars" class="cigar">
-      <div class="cigar-heading text-primary">
-        <h2>{{ cigar.name || "Not specified" }}</h2>
-      </div>
-      <div class="cigar-cell">
-        <div class="cigar-part-row">
-          <p class="subheading">Region</p>
-          <p class="subtitle">{{ cigar.country || "Not specified" }}</p>
-        </div>
-        <div class="cigar-part-row">
-          <p class="subheading">Filler</p>
-          <p class="subtitle">{{ cigar.filler || "Not specified" }}</p>
-        </div>
-        <div class="cigar-part-row">
-          <p class="subheading">Wrapper</p>
-          <p class="subtitle">{{ cigar.wrapper || "Not specified" }}</p>
-        </div>
-        <div class="cigar-part-row">
-          <p class="subheading">Color</p>
-          <p class="subtitle">{{ cigar.color || "Not specified" }}</p>
-        </div>
-        <div class="cigar-part-row">
-          <p class="subheading">Strength</p>
-          <p class="subtitle">{{ cigar.strength || "Not specified" }}</p>
-        </div>
-        <div class="cigar-part-row">
-          <p class="subheading">Length</p>
-          <p class="subtitle">{{ cigar.length || "Not specified" }} in.</p>
-        </div>
-        <div class="cigar-part-row">
-          <p class="subheading">Ring</p>
-          <p class="subtitle">{{ cigar.ringGauge || "Not specified" }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="pagesAmount" class="pages-selection-container">
-    <svg-icon
-      src="assets/images/right-hand.svg"
-      [svgClass]="'hand'"
-      (click)="loadPage($any(currentPage) - 1)"
-    ></svg-icon>
-    <div class="pages-selection">
-      <button
-        *ngFor="let page of getPagesToShow()"
-        class="page-selection-btn"
-        [class.selected]="page === currentPage && !loading"
-        [disabled]="page === currentPage || loading"
-        (click)="loadPage(page)"
-      >
-        {{ page.toString().padStart(2, "0") }}
-      </button>
-    </div>
-    <svg-icon
-      src="assets/images/left-hand.svg"
-      [svgClass]="'hand'"
-      (click)="loadPage($any(currentPage) + 1)"
-    ></svg-icon>
-  </div>
+  }
 </section>

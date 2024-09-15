@@ -2,22 +2,27 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   ElementRef,
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { loadResultsAction } from 'src/app/state/actions/cigarStore.actions';
 import {
   selectCigars,
   selectQuestionnaireData,
-  selectResultsFeature,
 } from 'src/app/state/selectors/cigarStore.selector';
-import { takeUntil } from 'rxjs';
-import { DestroyService } from 'src/app/services/destroy.service';
-import { ICigarSearchResult } from 'src/app/services/types';
-import { IQuestionnaireState } from 'src/app/state/reducers/types';
-import { flavours, pairings } from './constants';
+import { take, tap } from 'rxjs';
+import {
+  ALL_RESULTS,
+  Flavours,
+  getRandom,
+  NOT_SPECIFIED,
+  Pairings,
+} from './constants';
+import { ICigarSearchResult, LoadingStatus } from 'src/app/services/types';
 
 @Component({
   selector: 'app-results',
@@ -29,61 +34,43 @@ export class ResultsComponent implements OnInit {
   constructor(
     private store: Store,
     private cd: ChangeDetectorRef,
-    private readonly destroy$: DestroyService
+    private readonly destroyRef: DestroyRef,
   ) {}
 
-  questionnaireData: IQuestionnaireState | undefined;
-  currentPage: number | undefined;
+  questionnaireData$ = this.store.select(selectQuestionnaireData).pipe(take(1));
+  currentPage: number = 1;
   cigars: ICigarSearchResult[] | undefined;
   pagesAmount: number | undefined;
-  loading: boolean | undefined;
+  loading: boolean = true;
   error: any;
-
-  get randomFlavours(): { name: string; applied: boolean }[] {
-    return flavours.map((name) => ({
-      name,
-      applied: Math.random() < 0.5,
-    }));
-  }
-
-  get randomPairings(): { name: string; applied: boolean }[] {
-    return pairings.map((name) => ({
-      name,
-      applied: Math.random() < 0.5,
-    }));
-  }
+  readonly randomFlavours = getRandom(Flavours);
+  readonly randomPairings = getRandom(Pairings);
+  readonly ALL_RESULTS = ALL_RESULTS;
+  readonly NOT_SPECIFIED = NOT_SPECIFIED;
 
   @ViewChild('cigars_container')
   cigars_container: ElementRef | undefined;
 
   ngOnInit(): void {
     this.store
-      .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => (this.questionnaireData = data));
-
-    this.store
       .select(selectCigars)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((cigars) => {
-        this.cigars = cigars;
-        this.cd.markForCheck();
-        if (!cigars || !cigars.length) {
-          this.store.dispatch(
-            loadResultsAction({ page: this.currentPage || 1 })
-          );
-        }
-      });
-
-    this.store
-      .select(selectResultsFeature)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(({ page, count, loading, error }) => {
-        this.pagesAmount = Math.floor(count / 20);
-        this.currentPage = page;
-        this.error = error;
-        this.loading = loading;
-      });
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap(({ cigars, loadStatus, count, error, page }) => {
+          this.cigars = cigars;
+          this.pagesAmount = Math.floor(count / 20);
+          this.currentPage = page;
+          this.error = error;
+          this.loading = loadStatus === LoadingStatus.LOADING ? true : false;
+          this.cd.markForCheck();
+          if (!cigars?.length && loadStatus === LoadingStatus.NOT_LOADED) {
+            this.store.dispatch(
+              loadResultsAction({ page: this.currentPage || 1 }),
+            );
+          }
+        }),
+      )
+      .subscribe();
   }
 
   loadPage(page: number): void {
@@ -116,7 +103,7 @@ export class ResultsComponent implements OnInit {
 
     const pageNumbers: number[] = Array.from(
       { length: end - start + 1 },
-      (_, i) => start + i
+      (_, i) => start + i,
     );
 
     if (!pageNumbers.includes(1)) {

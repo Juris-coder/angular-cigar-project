@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
-import { takeUntil } from 'rxjs';
 import { colors } from './color.model';
-import { DestroyService } from 'src/app/services/destroy.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-color',
@@ -15,7 +14,7 @@ import { DestroyService } from 'src/app/services/destroy.service';
 export class ColorComponent {
   constructor(
     private store: Store,
-    private readonly destroy$: DestroyService
+    private readonly destroyRef: DestroyRef,
   ) {}
 
   selectedColor: string | undefined;
@@ -24,7 +23,7 @@ export class ColorComponent {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ color }) => (this.selectedColor = color));
   }
 

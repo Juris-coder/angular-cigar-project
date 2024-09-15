@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   OnInit,
   ViewChild,
@@ -8,7 +9,7 @@ import {
 import { FormBuilder, Validators } from '@angular/forms';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { distinctUntilChanged, takeUntil } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import {
@@ -18,7 +19,7 @@ import {
   numberPatternValidator,
 } from 'src/app/utils/validators';
 import { IDateOfBirthGroup } from './date.types';
-import { DestroyService } from 'src/app/services/destroy.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-date',
@@ -30,7 +31,7 @@ export class DateComponent implements OnInit {
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
-    private readonly destroy$: DestroyService
+    private readonly destroyRef: DestroyRef,
   ) {}
 
   faCalendarDays = faCalendarDays;
@@ -64,7 +65,7 @@ export class DateComponent implements OnInit {
         ],
       ],
     },
-    { validators: dateValidator() }
+    { validators: dateValidator() },
   );
 
   getRequiredState(controlName: keyof IDateOfBirthGroup): boolean {
@@ -78,23 +79,23 @@ export class DateComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ dateOfBirth }) => {
         if (dateOfBirth) {
           this.dateOfBirthGroup.controls.day.setValue(
-            dateOfBirth.getDate().toString().padStart(2, '0')
+            dateOfBirth.getDate().toString().padStart(2, '0'),
           );
           this.dateOfBirthGroup.controls.month.setValue(
-            (dateOfBirth.getMonth() + 1).toString().padStart(2, '0')
+            (dateOfBirth.getMonth() + 1).toString().padStart(2, '0'),
           );
           this.dateOfBirthGroup.controls.year.setValue(
-            dateOfBirth.getFullYear().toString()
+            dateOfBirth.getFullYear().toString(),
           );
         }
       });
 
     this.dateOfBirthGroup.statusChanges
-      .pipe(distinctUntilChanged(), takeUntil(this.destroy$))
+      .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe((status) => {
         if (status === 'VALID') {
           const { day, month, year } = this.dateOfBirthGroup.controls;
@@ -103,13 +104,13 @@ export class DateComponent implements OnInit {
               new Date(
                 Number(year.value),
                 Number(month.value) - 1,
-                Number(day.value)
-              )
-            )
+                Number(day.value),
+              ),
+            ),
           );
         } else {
           this.store.dispatch(
-            createUpdatePropertyAction('dateOfBirth')(undefined)
+            createUpdatePropertyAction('dateOfBirth')(undefined),
           );
         }
       });

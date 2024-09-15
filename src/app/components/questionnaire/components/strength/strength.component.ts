@@ -1,10 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { takeUntil } from 'rxjs';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import { CigarStrength } from 'src/app/app.types';
-import { DestroyService } from 'src/app/services/destroy.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-strength',
@@ -15,7 +19,7 @@ import { DestroyService } from 'src/app/services/destroy.service';
 export class StrengthComponent implements OnInit {
   constructor(
     private store: Store,
-    private readonly destroy$: DestroyService
+    private readonly destroyRef: DestroyRef,
   ) {}
 
   selectedStrength = 0;
@@ -31,7 +35,7 @@ export class StrengthComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ strength }) => {
         this.selectedStrength = this.strengthDictionary.indexOf(strength);
       });
@@ -39,7 +43,7 @@ export class StrengthComponent implements OnInit {
 
   updateStrengthValue(value: number) {
     this.store.dispatch(
-      createUpdatePropertyAction('strength')(this.strengthDictionary[value])
+      createUpdatePropertyAction('strength')(this.strengthDictionary[value]),
     );
   }
 }

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   selectCurrentRoute,
@@ -7,9 +12,9 @@ import {
 import { IQuestionnaireGroup, QuestionnaireStep } from './questionnaire.types';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { initialQuestionnaireState as init } from 'src/app/state/reducers/questionnaire.reducer';
-import { Observable, map, takeUntil } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { clearResults } from 'src/app/state/actions/cigarStore.actions';
-import { DestroyService } from 'src/app/services/destroy.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-questionnaire',
@@ -21,7 +26,7 @@ export class QuestionnaireComponent implements OnInit {
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
-    private readonly destroy$: DestroyService,
+    private readonly destroyRef: DestroyRef,
   ) {}
 
   currentRoute$ = this.store
@@ -96,12 +101,12 @@ export class QuestionnaireComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectCurrentRoute)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ routeConfig: { path } }) => (this.currentRoute = path));
 
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         this.questionnaireForm.patchValue(data);
       });

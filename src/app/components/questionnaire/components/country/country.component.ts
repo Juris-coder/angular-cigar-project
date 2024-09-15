@@ -1,10 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
-import { takeUntil } from 'rxjs';
 import { countries } from './country.model';
-import { DestroyService } from 'src/app/services/destroy.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
@@ -14,7 +18,7 @@ import { DestroyService } from 'src/app/services/destroy.service';
 export class CountryComponent implements OnInit {
   constructor(
     private store: Store,
-    private readonly destroy$: DestroyService
+    private readonly destroyRef: DestroyRef,
   ) {}
 
   selectedCountry: string | undefined;
@@ -23,7 +27,7 @@ export class CountryComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectQuestionnaireData)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ country }) => {
         if (country === 'United States of America') {
           this.selectedCountry = 'USA';

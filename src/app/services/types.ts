@@ -1,6 +1,12 @@
 import { Observable } from 'rxjs';
 import { CigarColor, CigarStrength } from '../app.types';
 
+export enum LoadingStatus {
+  NOT_LOADED = 'NOT_LOADED',
+  LOADING = 'LOADING',
+  LOADED = 'LOADED',
+}
+
 export interface IRequestParameters {
   name?: string;
   brandId?: number;
@@ -16,13 +22,13 @@ export interface IApiAssistantService {
   getBrandById(brandId: number): Observable<{ brand: IBrandSearchResult }>;
   getCigars(
     page: number,
-    requestDictionary?: IRequestParameters
+    requestDictionary?: IRequestParameters,
   ): Observable<ICigarsDatabaseState>;
   getCigarById(cigarId: number): Observable<{ cigar: ICigarSearchResult }>;
 }
 
 export interface ILoading {
-  loading: boolean;
+  loadStatus: LoadingStatus;
   error: any;
 }
 

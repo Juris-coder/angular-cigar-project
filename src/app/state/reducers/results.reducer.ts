@@ -5,30 +5,35 @@ import {
   loadResultsError,
   loadResultsSuccess,
 } from '../actions/cigarStore.actions';
-import { ICigarsDatabaseState } from 'src/app/services/types';
+import { ICigarsDatabaseState, LoadingStatus } from 'src/app/services/types';
 
 export const resultsInitialState: ICigarsDatabaseState = {
   cigars: [],
   page: 1,
   count: 0,
-  loading: false,
+  loadStatus: LoadingStatus.NOT_LOADED,
   error: null,
 };
 
 export const resultsLoadedReducer = createReducer(
   resultsInitialState,
-  on(loadResultsAction, (state) => ({ ...state, loading: true, error: null })),
+  on(loadResultsAction, (state) => ({
+    ...state,
+    loadStatus: LoadingStatus.LOADING,
+    error: null,
+  })),
   on(loadResultsSuccess, (state: ICigarsDatabaseState, { results }) => ({
     ...state,
     cigars: [...results.cigars],
     page: results.page,
     count: results.count,
-    loading: false,
+    loadStatus: LoadingStatus.LOADED,
+    error: null,
   })),
   on(loadResultsError, (state, { error }) => ({
     ...state,
-    loading: false,
+    loadStatus: LoadingStatus.LOADED,
     error,
   })),
-  on(clearResults, () => resultsInitialState)
+  on(clearResults, () => resultsInitialState),
 );

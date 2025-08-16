@@ -66,6 +66,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     ApiAssistantService,

@@ -11,10 +11,11 @@ import { CigarStrength } from 'src/app/app.types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-strength',
-  templateUrl: './strength.component.html',
-  styleUrls: ['./strength.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-strength',
+    templateUrl: './strength.component.html',
+    styleUrls: ['./strength.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class StrengthComponent implements OnInit {
   constructor(

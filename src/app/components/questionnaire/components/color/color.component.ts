@@ -6,10 +6,11 @@ import { colors } from './color.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-color',
-  templateUrl: './color.component.html',
-  styleUrls: ['./color.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-color',
+    templateUrl: './color.component.html',
+    styleUrls: ['./color.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ColorComponent {
   constructor(

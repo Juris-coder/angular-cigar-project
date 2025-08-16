@@ -22,10 +22,11 @@ import { IDateOfBirthGroup } from './date.types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-date',
-  templateUrl: './date.component.html',
-  styleUrls: ['./date.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-date',
+    templateUrl: './date.component.html',
+    styleUrls: ['./date.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DateComponent implements OnInit {
   constructor(

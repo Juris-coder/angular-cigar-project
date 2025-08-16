@@ -17,10 +17,11 @@ import { clearResults } from 'src/app/state/actions/cigarStore.actions';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-questionnaire',
-  templateUrl: './questionnaire.component.html',
-  styleUrls: ['./questionnaire.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-questionnaire',
+    templateUrl: './questionnaire.component.html',
+    styleUrls: ['./questionnaire.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class QuestionnaireComponent implements OnInit {
   constructor(

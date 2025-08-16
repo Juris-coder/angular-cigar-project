@@ -25,10 +25,11 @@ import {
 import { ICigarSearchResult, LoadingStatus } from 'src/app/services/types';
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-results',
+    templateUrl: './results.component.html',
+    styleUrls: ['./results.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ResultsComponent implements OnInit {
   constructor(

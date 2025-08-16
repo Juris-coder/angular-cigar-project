@@ -10,10 +10,11 @@ import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.act
 import { countries } from './country.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-  selector: 'app-country',
-  templateUrl: './country.component.html',
-  styleUrls: ['./country.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-country',
+    templateUrl: './country.component.html',
+    styleUrls: ['./country.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CountryComponent implements OnInit {
   constructor(

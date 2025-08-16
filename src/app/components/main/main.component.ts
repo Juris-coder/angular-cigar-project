@@ -3,10 +3,11 @@ import { Store } from '@ngrx/store';
 import { clearState } from 'src/app/state/actions/cigarStore.actions';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MainComponent {
   constructor(private store: Store) {}

@@ -15,7 +15,7 @@ export class CigarSearchEffects {
   constructor(
     private store: Store,
     private actions$: Actions,
-    private apiService: ApiAssistantService
+    private apiService: ApiAssistantService,
   ) {}
 
   loadCigars$ = createEffect(() =>
@@ -23,17 +23,14 @@ export class CigarSearchEffects {
       ofType(loadResultsAction),
       withLatestFrom(this.store.select(selectQuestionnaireData)),
       switchMap(([{ page }, { color, country, strength }]) =>
-        this.apiService
-          .getCigars(page, {
-            country,
-            color,
-            strength,
-          })
-          .pipe(
-            map((results) => loadResultsSuccess({ results })),
-            catchError((error) => of(loadResultsError(error)))
-          )
-      )
-    )
+        this.apiService.getCigars(page, {
+          country,
+          color,
+          strength,
+        }),
+      ),
+      map((results) => loadResultsSuccess({ results })),
+      catchError((error) => of(loadResultsError(error))),
+    ),
   );
 }

@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, DestroyRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createUpdatePropertyAction } from 'src/app/state/actions/cigarStore.actions';
 import { selectQuestionnaireData } from 'src/app/state/selectors/cigarStore.selector';
 import { colors } from './color.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Component({
     selector: 'app-color',
@@ -13,20 +13,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     standalone: false
 })
 export class ColorComponent {
-  constructor(
-    private store: Store,
-    private readonly destroyRef: DestroyRef,
-  ) {}
+  readonly colors = colors;
 
-  selectedColor: string | undefined;
-  colors = colors;
+  private readonly store = inject(Store);
 
-  ngOnInit(): void {
-    this.store
-      .select(selectQuestionnaireData)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ color }) => (this.selectedColor = color));
-  }
+  readonly selectedColor$ = this.store
+    .select(selectQuestionnaireData)
+    .pipe(map(({ color }) => color));
 
   emitColorSelection(name: string): void {
     this.store.dispatch(createUpdatePropertyAction('color')(name));

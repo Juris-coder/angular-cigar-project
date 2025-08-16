@@ -38,7 +38,7 @@ export class ResultsComponent implements OnInit {
     private readonly destroyRef: DestroyRef,
   ) {}
 
-  questionnaireData$ = this.store.select(selectQuestionnaireData).pipe(take(1));
+  questionnaireData$ = this.store.select(selectQuestionnaireData);
   currentPage: number = 1;
   cigars: ICigarSearchResult[] | undefined;
   pagesAmount: number | undefined;
@@ -62,7 +62,7 @@ export class ResultsComponent implements OnInit {
           this.pagesAmount = Math.floor(count / 20);
           this.currentPage = page;
           this.error = error;
-          this.loading = loadStatus === LoadingStatus.LOADING ? true : false;
+          this.loading = loadStatus === LoadingStatus.LOADING;
           this.cd.markForCheck();
           if (!cigars?.length && loadStatus === LoadingStatus.NOT_LOADED) {
             this.store.dispatch(

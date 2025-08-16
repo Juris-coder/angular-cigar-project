@@ -55,7 +55,7 @@
                 <div class="flavours-container">
                   <h3>Flavours</h3>
                   <div class="flavours">
-                    @for (flavour of randomFlavours; track $index) {
+                    @for (flavour of randomFlavours; track flavour.name) {
                       <p [class.selected]="flavour.applied">
                         {{ flavour.name }}
                       </p>
@@ -65,7 +65,7 @@
                 <div class="pairings -container">
                   <h3>Recommended pairings</h3>
                   <div class="pairings">
-                    @for (pairing of randomPairings; track $index) {
+                    @for (pairing of randomPairings; track pairing.name) {
                       <p [class.selected]="pairing.applied">
                         {{ pairing.name }}
                       </p>
@@ -115,7 +115,7 @@
     <div class="v-pad">
       <h2 class="text-primary">Error occurred during search results loading</h2>
     </div>
-  } @else if (!loading && cigars) {
+  } @else if (cigars) {
     <div #cigars_container class="container cigars">
       @for (cigar of cigars; track $index) {
         <div class="cigar">

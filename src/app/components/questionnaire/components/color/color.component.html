@@ -4,7 +4,7 @@
   <app-cards
     title="Choose all colors"
     [items]="colors"
-    [selected]="selectedColor"
+    [selected]="(selectedColor$ | async) ?? ''"
     (selectedChange)="emitColorSelection($event)"
   />
 </div>

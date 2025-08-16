@@ -7,7 +7,7 @@
   <app-cards
     title="Choose all regions"
     [items]="countries"
-    [selected]="selectedCountry"
+    [selected]="selectedCountry$ | async | countryName"
     (selectedChange)="emitCountrySelection($event)"
   />
 </div>

@@ -1,27 +1,27 @@
 <div class="input-container">
   @if (questionnaireData$ | async; as data) {
     <div class="input-group">
-      <label for="name" class="input-label">Name</label
-      ><input
+      <label for="name" class="input-label">Name</label>
+      <input
         type="text"
         class="input"
         maxlength="256"
         name="name"
         placeholder="Winston Churchill"
         [value]="data.name"
-        (change)="updateNameValue($event)"
+        (change)="updatePropValue($event, 'name')"
       />
     </div>
     <div class="input-group">
-      <label for="email" class="input-label">Email</label
-      ><input
+      <label for="email" class="input-label">Email</label>
+      <input
         type="email"
         class="input"
         maxlength="256"
         name="email"
         placeholder="hey@churchill.com"
         [value]="data.email"
-        (change)="updateEmailValue($event)"
+        (change)="updatePropValue($event, 'email')"
       />
     </div>
   }

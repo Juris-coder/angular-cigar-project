@@ -1,43 +1,50 @@
 <div class="input-container">
-  <div class="input-group" (click)="focusOnInput($event)">
-    <label for="date" class="input-label"
-      ><fa-icon class="fa-2x" [icon]="faCalendarDays" />
-    </label>
-    <div class="input-wrapper input">
-      <div [formGroup]="dateOfBirthGroup">
-        <input class="day" type="text" formControlName="day" placeholder="DD" />
-        /
-        <input
-          class="month"
-          type="text"
-          formControlName="month"
-          placeholder="MM"
-        />
-        /
-        <input
-          #year
-          class="year"
-          type="text"
-          formControlName="year"
-          placeholder="YYYY"
-        />
+  @if (dateOfBirthGroup) {
+    <div class="input-group" (click)="focusOnInput($event, year)">
+      <label for="date" class="input-label"
+        ><fa-icon class="fa-2x" [icon]="faCalendarDays" />
+      </label>
+      <div class="input-wrapper input">
+        <div [formGroup]="dateOfBirthGroup">
+          <input
+            class="day"
+            type="text"
+            formControlName="day"
+            placeholder="DD"
+          />
+          /
+          <input
+            class="month"
+            type="text"
+            formControlName="month"
+            placeholder="MM"
+          />
+          /
+          <input
+            #year
+            class="year"
+            type="text"
+            formControlName="year"
+            placeholder="YYYY"
+          />
+        </div>
       </div>
     </div>
-  </div>
 
-  @if (dateOfBirthGroup.hasError("invalidDate")) {
-    <p class="notice error">Provided date is not valid</p>
+    @if (dateOfBirthGroup.hasError("invalidDate")) {
+      <p class="notice error">Provided date is not valid</p>
+    }
+    @if (getRequiredState(dateOfBirthGroup.controls.day)) {
+      <p class="notice error">Please enter day in DD format</p>
+    }
+    @if (getRequiredState(dateOfBirthGroup.controls.month)) {
+      <p class="notice error">Please enter month in MM format</p>
+    }
+    @if (getRequiredState(dateOfBirthGroup.controls.year)) {
+      <p class="notice error">Please enter year in YYYY format</p>
+    }
+    <p class="notice">
+      Note: you must be over 18 years old in order to continue with out website
+    </p>
   }
-  @if (getRequiredState("day")) {
-    <p class="notice error">Please enter day in DD format</p>
-  }
-  @if (getRequiredState("month")) {
-    <p class="notice error">Please enter month in MM format</p>
-  }
-  @if (getRequiredState("year")) {
-    <p class="notice error">Please enter year in YYYY format</p>
-  }
-  <p class="notice">
-    Note: you must be over 18 years old in order to continue with out website
-  </p>
 </div>

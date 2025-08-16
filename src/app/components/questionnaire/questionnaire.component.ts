@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   selectCurrentRoute,
@@ -12,30 +7,30 @@ import {
 import { IQuestionnaireGroup, QuestionnaireStep } from './questionnaire.types';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { initialQuestionnaireState as init } from 'src/app/state/reducers/questionnaire.reducer';
-import { Observable, map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { clearResults } from 'src/app/state/actions/cigarStore.actions';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-questionnaire',
-    templateUrl: './questionnaire.component.html',
-    styleUrls: ['./questionnaire.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-questionnaire',
+  templateUrl: './questionnaire.component.html',
+  styleUrls: ['./questionnaire.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class QuestionnaireComponent implements OnInit {
+export class QuestionnaireComponent {
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
-    private readonly destroyRef: DestroyRef,
   ) {}
 
-  currentRoute$ = this.store
-    .select(selectCurrentRoute)
-    .pipe(map(({ routeConfig: { path } }) => path));
-  name$: Observable<string> = this.store
-    .select(selectQuestionnaireData)
-    .pipe(map(({ name }) => name || 'stranger'));
+  readonly currentRoute$ = this.store.select(selectCurrentRoute).pipe(
+    map(({ routeConfig: { path } }) => path),
+    tap((path) => (this.currentRoute = path)),
+  );
+  readonly name$ = this.store.select(selectQuestionnaireData).pipe(
+    tap((data) => this.questionnaireForm.patchValue(data)),
+    map(({ name }) => name || 'stranger'),
+  );
 
   QuestionnaireStep = QuestionnaireStep;
   currentRoute: string | undefined;
@@ -97,20 +92,6 @@ export class QuestionnaireComponent implements OnInit {
       this.currentRoute !== QuestionnaireStep.DateOfBirth &&
       this.currentRoute !== QuestionnaireStep.Name
     );
-  }
-
-  ngOnInit(): void {
-    this.store
-      .select(selectCurrentRoute)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ routeConfig: { path } }) => (this.currentRoute = path));
-
-    this.store
-      .select(selectQuestionnaireData)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((data) => {
-        this.questionnaireForm.patchValue(data);
-      });
   }
 
   getStep(next: boolean): string {

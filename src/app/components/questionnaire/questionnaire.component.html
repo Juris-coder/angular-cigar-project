@@ -4,6 +4,8 @@
     [class.md]="isModifiedAppearance && !isRestricted"
   >
     <div class="wrapper primary center-content">
+      @let currentRoute = currentRoute$ | async;
+      @let name = name$ | async;
       @switch (currentRoute) {
         @case (QuestionnaireStep.DateOfBirth) {
           <h2>What is your age?</h2>
@@ -12,13 +14,13 @@
           <h2>Tell us your name</h2>
         }
         @case (QuestionnaireStep.Country) {
-          <h2>G'day, {{ name$ | async }}</h2>
+          <h2>G'day, {{ name }}</h2>
         }
         @case (QuestionnaireStep.Color) {
-          <h2>Great choice so far, {{ name$ | async }}</h2>
+          <h2>Great choice so far, {{ name }}</h2>
         }
         @case (QuestionnaireStep.Strength) {
-          <h2>Nicely done, {{ name$ | async }}</h2>
+          <h2>Nicely done, {{ name }}</h2>
         }
         @case ("restricted") {
           <h2>oops, sorry...</h2>

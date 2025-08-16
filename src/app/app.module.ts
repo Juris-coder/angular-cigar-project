@@ -30,6 +30,7 @@ import { CigarSearchEffects } from './state/effects/cigarSearch.effects';
 import { AgeGuard } from './guards/age.guard';
 import { RestrictedComponent } from './components/questionnaire/components/restricted/restricted.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { CountryNamePipe } from './components/questionnaire/components/country/country.pipe';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   ],
   bootstrap: [AppComponent],
   imports: [
+    CountryNamePipe,
     BrowserModule,
     AppRoutingModule,
     NgxSkeletonLoaderModule,
@@ -66,7 +68,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {}),
   ],
   providers: [
     ApiAssistantService,

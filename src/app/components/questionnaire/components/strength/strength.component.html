@@ -1,6 +1,7 @@
 <div class="strength-container">
   <div class="notice">Now, please select your preferred cigar’s strength:</div>
 
+  @let selectedStrength = (selectedStrength$ | async) ?? 0;
   <div class="range-input-wrapper center-content">
     <div class="cigar-strength-range center-content">
       <div class="breakpoints">

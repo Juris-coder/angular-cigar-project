@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables";
 
 .buttons-container {
   display: grid;
@@ -7,7 +7,7 @@
 }
 
 .item-name {
-  font-family: $font-primary;
+  font-family: variables.$font-primary;
   font-size: 12px;
   text-transform: uppercase;
   line-height: 1.3;
@@ -17,15 +17,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid $primary;
+  border: 1px solid variables.$primary;
   cursor: pointer;
   .item {
-    fill: $mid-gray;
+    fill: variables.$mid-gray;
   }
   &:hover,
   &.selected {
     .item {
-      fill: $primary;
+      fill: variables.$primary;
     }
   }
   .item-image-wrapper {
@@ -37,6 +37,6 @@
       padding: 0.25rem;
     }
     flex: 1;
-    border-bottom: 1px solid $primary;
+    border-bottom: 1px solid variables.$primary;
   }
 }

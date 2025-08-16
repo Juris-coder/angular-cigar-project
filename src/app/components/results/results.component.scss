@@ -1,5 +1,5 @@
 @use "styles";
-@import "variables";
+@use "variables";
 
 .section {
   display: flex;
@@ -54,18 +54,18 @@
   gap: 10px;
   p {
     font-size: 14px;
-    color: $white;
+    color: variables.$white;
     padding: 4px;
     &.selected {
-      color: $primary;
+      color: variables.$primary;
       border-radius: 6px;
-      background: $white;
+      background: variables.$white;
     }
   }
 }
 
 .hand {
-  fill: $primary;
+  fill: variables.$primary;
   z-index: 1;
   position: relative;
 }
@@ -78,7 +78,7 @@
 .cigar {
   display: flex;
   flex-direction: column;
-  outline: 2px solid $primary;
+  outline: 2px solid variables.$primary;
   min-width: 0;
 
   .cigar-cell {
@@ -87,7 +87,7 @@
   }
 
   .cigar-heading {
-    border-bottom: 2px solid $primary;
+    border-bottom: 2px solid variables.$primary;
     padding: 0.75rem 0;
     h2 {
       white-space: nowrap;
@@ -100,7 +100,7 @@
 
   .cigar-part-row {
     display: flex;
-    border-bottom: 2px solid $mid-gray;
+    border-bottom: 2px solid variables.$mid-gray;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 0;
@@ -109,8 +109,8 @@
       text-transform: uppercase;
       font-size: 1rem;
       font-weight: 700;
-      color: $mid-gray;
-      font-family: $font-primary;
+      color: variables.$mid-gray;
+      font-family: variables.$font-primary;
     }
 
     .subtitle {
@@ -136,13 +136,13 @@
   cursor: pointer;
   background: none;
   font-size: 1rem;
-  font-family: $font-secondary;
+  font-family: variables.$font-secondary;
   font-weight: 700;
   width: fit-content;
-  color: $light-gray;
+  color: variables.$light-gray;
   border: none;
   &.selected {
-    color: $primary;
+    color: variables.$primary;
   }
 }
 

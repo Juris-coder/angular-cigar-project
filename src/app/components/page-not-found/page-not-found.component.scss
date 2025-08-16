@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables";
 
 .text-container,
 .btn-group {
@@ -11,7 +11,7 @@
 }
 
 .back-button-container {
-  border-top: 2px solid $primary;
+  border-top: 2px solid variables.$primary;
   text-align: center;
   gap: 2rem;
   padding-top: 1rem;

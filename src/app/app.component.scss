@@ -1,5 +1,5 @@
 @use "styles";
-@import "variables";
+@use "variables";
 // Navbar
 
 :host {
@@ -9,18 +9,18 @@
 .page-wrapper {
   @include styles.extend-vertically;
   height: 100%;
-  background-color: $white;
+  background-color: variables.$white;
   padding-top: 2rem;
   padding-bottom: 2rem;
   &.red {
-    background-color: $primary;
+    background-color: variables.$primary;
     .nav-content {
-      border-top: 2px solid $white;
-      border-bottom: 2px solid $white;
+      border-top: 2px solid variables.$white;
+      border-bottom: 2px solid variables.$white;
     }
     .nav-link {
       @extend .text-secondary;
-      border-left: 2px solid $white;
+      border-left: 2px solid variables.$white;
     }
   }
 }
@@ -32,8 +32,8 @@
 }
 
 .nav-content {
-  border-top: 2px solid $primary;
-  border-bottom: 2px solid $primary;
+  border-top: 2px solid variables.$primary;
+  border-bottom: 2px solid variables.$primary;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 
@@ -47,7 +47,7 @@
     display: grid;
     .logo {
       text-transform: uppercase;
-      font-family: $font-primary, sans-serif;
+      font-family: variables.$font-primary, sans-serif;
       text-decoration: none;
       font-size: 1.5rem;
       line-height: 1;
@@ -65,9 +65,9 @@
 
 .nav-link {
   @extend .text-primary;
-  border-left: 2px solid $primary;
+  border-left: 2px solid variables.$primary;
   text-align: center;
-  letter-spacing: $text-spacing;
+  letter-spacing: variables.$text-spacing;
   flex: 1;
   justify-content: center;
   align-items: center;

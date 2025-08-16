@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables";
 
 .strength-container {
   display: flex;
@@ -35,7 +35,7 @@
 
 .breakpoint {
   .strength-text {
-    font-family: $font-primary;
+    font-family: variables.$font-primary;
     font-size: 1rem;
     text-transform: uppercase;
     width: 100%;
@@ -55,13 +55,13 @@
 .scale {
   width: 2px;
   height: 12px;
-  background-color: $primary;
+  background-color: variables.$primary;
 }
 
 .circle {
   width: 8px;
   height: 8px;
-  background-color: $primary;
+  background-color: variables.$primary;
   border-radius: 50%;
 }
 
@@ -71,7 +71,7 @@ input[type="range"] {
   z-index: 2;
   -webkit-appearance: none;
   appearance: none;
-  background: $primary;
+  background: variables.$primary;
   cursor: pointer;
   &::-webkit-slider-runnable-track {
     margin: 0 -3px;

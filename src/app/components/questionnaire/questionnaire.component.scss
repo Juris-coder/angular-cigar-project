@@ -1,5 +1,4 @@
 @use "styles";
-@import "variables";
 
 :host {
   @include styles.extend-vertically;

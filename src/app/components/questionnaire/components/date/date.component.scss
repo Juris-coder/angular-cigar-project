@@ -21,7 +21,7 @@
   input {
     width: 0;
     text-align: center;
-    color: $black;
+    color: variables.$black;
     font-family: variables.$font-primary, sans-serif;
     font-size: 1rem;
     transition: border-color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);

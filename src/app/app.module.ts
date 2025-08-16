@@ -5,7 +5,10 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
 import { InputComponent } from './components/questionnaire/components/input/input.component';
 import { ApiAssistantService } from './services/apiAssistant.service';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -44,10 +47,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     RestrictedComponent,
     PageNotFoundComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     NgxSkeletonLoaderModule,
     EffectsModule.forRoot([CigarSearchEffects]),
     StoreRouterConnectingModule.forRoot(),
@@ -64,7 +67,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [ApiAssistantService, AgeGuard],
-  bootstrap: [AppComponent],
+  providers: [
+    ApiAssistantService,
+    AgeGuard,
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
 })
 export class AppModule {}
